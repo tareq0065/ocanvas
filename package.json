@@ -1,5 +1,5 @@
 {
-  "name": "ocanvas",
+  "name": "@tareq/ocanvas",
   "version": "0.1.0",
   "description": "Canvas for onemin",
   "main": "build/index.js",
