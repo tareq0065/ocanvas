@@ -1,0 +1,50 @@
+@import "../variables.scss";
+@import "../typography.scss";
+
+#canvasContainer {
+  min-width: 100%;
+  min-height: 100%;
+}
+
+.Canvas {
+  @include font-defaults;
+  margin: auto;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  width: 100%;
+  background: #ebecf0;
+
+  .CanvasInner {
+    grid-area: canvas;
+    position: relative;
+    z-index: 0;
+    padding: 10px;
+
+    .Composition {
+      position: relative;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transform-origin: center center;
+      @include box-shadow(0 2px 8px rgba($shadow-main-layer, .07));
+      overflow: hidden;
+
+      .Layer {
+        pointer-events: none;
+        background: white;
+      }
+
+    }
+
+  }
+
+}
