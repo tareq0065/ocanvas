@@ -1,8 +1,8 @@
 import Canvas from './Canvas';
-import { Scene } from 'react-scenejs';
+import Scene from "scenejs";
 
 if (typeof window !== 'undefined') {
-    window.scene = Scene;
+    window.scene = new Scene();
 }
 
 export { Canvas };
