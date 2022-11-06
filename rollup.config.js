@@ -32,7 +32,9 @@ module.exports = {
 			runtimeHelpers: true,
 			presets: ['@babel/env', '@babel/preset-react'],
 		}),
-		commonjs(),
+		commonjs({
+			include: /node_modules/,
+		}),
 		uglify(),
 		postcss(),
 		copy({

@@ -9,8 +9,6 @@ const Canvas = ({ slides, width, height }) => {
 	const {
 		height: windowHeight,
 		width: windowWidth,
-		parentWidth,
-		parentHeight,
 		scale,
 	} = useWindowDimensions(canvasRef, width, height);
 	// set fit = scale(0.1771)
