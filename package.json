@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/tareq0065/onecanvas#readme",
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
   },
   "dependencies": {
     "@babel/core": "^7.19.6",
@@ -41,8 +41,8 @@
     "identity-obj-proxy": "^3.0.0",
     "node-sass": "^7.0.3",
     "prop-types": "^15.8.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
     "react-scenejs": "^1.1.0",
     "rollup": "^3.2.3",
     "rollup-plugin-copy": "^3.4.0",
