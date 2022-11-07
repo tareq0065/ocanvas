@@ -8,7 +8,9 @@ const { uglify } = require('rollup-plugin-uglify');
 
 const packageJson = require('./package.json');
 
-const externalDeps = Object.keys(Object.assign({}, packageJson.dependencies, packageJson.peerDependencies));
+const externalDeps = Object.keys(
+	Object.assign({}, packageJson.dependencies, packageJson.peerDependencies)
+);
 const nodeDeps = ['path'];
 const external = externalDeps.concat(nodeDeps);
 
@@ -32,11 +34,14 @@ module.exports = {
 			browser: true,
 		}),
 		babel({
-			babelrc: false,
-			presets: [['@babel/preset-env', { modules: false }], '@babel/preset-react'],
+			babelrc: true,
+			presets: [
+				['@babel/preset-env', { modules: false }],
+				'@babel/preset-react',
+			],
 			extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
 			exclude: 'node_modules/**',
-			runtimeHelpers: true
+			runtimeHelpers: true,
 		}),
 		commonjs({
 			include: /node_modules/,
@@ -58,5 +63,5 @@ module.exports = {
 			],
 		}),
 	],
-	external
+	external,
 };
