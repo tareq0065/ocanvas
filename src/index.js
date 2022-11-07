@@ -1,8 +1,9 @@
 import Canvas from './Canvas';
-import Scene from "scenejs";
+import RainDrop from './components/RainDrop';
+import Scene from 'scenejs';
 
 if (typeof window !== 'undefined') {
-    window.scene = new Scene();
+	window.scene = new Scene();
 }
 
-export { Canvas };
+module.exports = { Canvas, RainDrop };

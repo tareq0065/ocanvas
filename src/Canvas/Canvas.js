@@ -2,9 +2,8 @@ import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Canvas.scss';
 import useWindowDimensions from '../../util/useWindowDimensions';
-import Animations from '../animations';
 
-const Canvas = ({ slides, width, height }) => {
+const Canvas = ({ children, slides, width, height }) => {
 	const canvasRef = useRef(null);
 	const {
 		height: windowHeight,
@@ -39,7 +38,7 @@ const Canvas = ({ slides, width, height }) => {
 								height: height,
 							}}
 						>
-							{slides.map((s, si) => Animations(s))}
+							{children}
 						</div>
 					</div>
 				</div>
@@ -52,6 +51,7 @@ Canvas.propTypes = {
 	slides: PropTypes.array,
 	width: PropTypes.number,
 	height: PropTypes.number,
+	children: PropTypes.any,
 };
 
 export default Canvas;

@@ -18,9 +18,9 @@ const RainDrop = ({ name, id, keyframes, playSpeed, delay }) => {
 				ready
 			>
 				<div className="raindrops">
-					<div className="raindrop circle1"></div>
-					<div className="raindrop circle2"></div>
-					<div className="raindrop circle3"></div>
+					<div className="raindrop circle1"/>
+					<div className="raindrop circle2"/>
+					<div className="raindrop circle3"/>
 				</div>
 			</Scene>
 		</div>
