@@ -6,4 +6,5 @@ if (typeof window !== 'undefined') {
 	window.scene = new Scene();
 }
 
-module.exports = { Canvas, RainDrop };
+export {RainDrop}
+export default Canvas
