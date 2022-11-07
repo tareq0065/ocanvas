@@ -1,6 +1,6 @@
 {
   "name": "ocanvas",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Canvas for onemin",
   "main": "build/index.js",
   "module": "build/index.esm.js",
