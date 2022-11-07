@@ -1,5 +1,5 @@
 import Canvas from './Canvas';
-import RainDrop from './components/RainDrop';
+import RainDrop from './components/RainDrop/RainDrop';
 import Scene from 'scenejs';
 
 if (typeof window !== 'undefined') {
