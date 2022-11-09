@@ -15,10 +15,10 @@ const Canvas = ({ children, width, height }) => {
 		width: windowWidth,
 		scale,
 	} = useWindowDimensions(canvasRef, width, height);
-	useScript('./public/effects.min.js');
-	useScript('./public/media.min.js');
-	useScript('./public/shape.min.js');
-	useScript('./public/scene.min.js');
+	useScript('https://github.com/tareq0065/ocanvas/public/effects.min.js');
+	useScript('https://github.com/tareq0065/ocanvas/public/media.min.js');
+	useScript('https://github.com/tareq0065/ocanvas/public/shape.min.js');
+	useScript('https://github.com/tareq0065/ocanvas/public/scene.min.js');
 
 	useEffect(() => {
 		console.log('sceneRef:', sceneRef.current);
