@@ -1,17 +1,35 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Canvas.scss';
 import useWindowDimensions from '../../util/useWindowDimensions';
+import { Scene } from 'react-scenejs';
 
-const Canvas = ({ children, slides, width, height }) => {
+const Canvas = ({ children, width, height }) => {
 	const canvasRef = useRef(null);
+	const sceneRef = useRef();
+	const [isPlaying, setIsPlaying] = useState(false);
+	const [progress, setProgress] = useState(0);
 	const {
 		height: windowHeight,
 		width: windowWidth,
 		scale,
 	} = useWindowDimensions(canvasRef, width, height);
-	// set fit = scale(0.1771)
-	const [zoom, setZoom] = useState(0.1);
+
+	useEffect(() => {
+		console.log('sceneRef:', sceneRef.current);
+		let duration = sceneRef.current.getDuration();
+		console.log('duration:', duration);
+
+		sceneRef.current.events.play((e) => {
+			setIsPlaying(true);
+		});
+		sceneRef.current.events.paused((e) => {
+			setIsPlaying(false);
+		});
+		sceneRef.current.events.animate((e) => {
+			setProgress((100 * e.time) / duration);
+		});
+	}, [sceneRef.current]);
 
 	return (
 		<div id="canvasContainer">
@@ -32,15 +50,46 @@ const Canvas = ({ children, slides, width, height }) => {
 						}}
 					>
 						<div
-							className="Layer"
+							className="Layers"
 							style={{
 								width: width,
 								height: height,
 							}}
 						>
-							{children}
+							<Scene ready autoplay ref={sceneRef}>
+								{children}
+							</Scene>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div
+				style={{
+					position: 'absolute',
+					bottom: 20,
+					margin: 0,
+					left: 0,
+					right: 0,
+				}}
+			>
+				<div className="player">
+					<div
+						className={`${isPlaying ? 'pause' : 'play'}`}
+						onClick={() => {
+							// jsscene.isPaused() ? jsscene.play() : jsscene.pause();
+						}}
+					/>
+					<input
+						className="progress"
+						type="range"
+						onChange={(e) => {
+							// jsscene.pause();
+							// jsscene.setTime(e.target.value + '%');
+						}}
+						value={progress}
+						min="0"
+						max="100"
+					/>
 				</div>
 			</div>
 		</div>
@@ -48,10 +97,9 @@ const Canvas = ({ children, slides, width, height }) => {
 };
 
 Canvas.propTypes = {
-	slides: PropTypes.array,
 	width: PropTypes.number,
 	height: PropTypes.number,
 	children: PropTypes.any,
 };
 
-export default Canvas;
+export { Canvas };

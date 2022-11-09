@@ -8,6 +8,7 @@
 
 .Canvas {
   @include font-defaults;
+  font-size: 14px;
   margin: auto;
   flex-shrink: 0;
   display: flex;
@@ -38,7 +39,7 @@
       @include box-shadow(0 2px 8px rgba($shadow-main-layer, .07));
       overflow: hidden;
 
-      .Layer {
+      .Layers {
         pointer-events: none;
         background: white;
       }
@@ -47,4 +48,89 @@
 
   }
 
+}
+
+//Player
+
+.player {
+  position: relative;
+  text-align: center;
+}
+.circles .circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  border: 100px solid black;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.player .play, .player .pause, .player .progress {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.player .play {
+  border-left: 14px solid #333;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+
+.player .pause {
+  border-left: 4px solid #333;
+  border-right: 4px solid #333;
+  width: 14px;
+  height: 16px;
+  box-sizing: border-box;
+}
+
+.player input[type=range] {
+  width: 200px;
+}
+
+.player input[type=range] {
+  -webkit-appearance: none;
+  background: rgba(0, 0, 0, 0.2);
+  height: 5px;
+}
+
+.player input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  background: #333;
+}
+
+.player input[type=range]:focus {
+  outline: none;
+}
+
+
+.Layer-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  border: 100px solid black;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.raindrop {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  border: 100px solid black;
+  border-radius: 50%;
+  box-sizing: border-box;
+  transform: scale(0);
 }
