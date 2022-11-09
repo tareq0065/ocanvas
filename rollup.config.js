@@ -60,6 +60,26 @@ module.exports = {
 					dest: 'build',
 					rename: 'typography.scss',
 				},
+				{
+					src: 'public/effects.min.js',
+					dest: 'build/public',
+					rename: 'effects.min.js',
+				},
+				{
+					src: 'public/media.min.js',
+					dest: 'build/public',
+					rename: 'media.min.js',
+				},
+				{
+					src: 'public/shape.min.js',
+					dest: 'build/public',
+					rename: 'shape.min.js',
+				},
+				{
+					src: 'public/scene.min.js',
+					dest: 'build/public',
+					rename: 'scene.min.js',
+				},
 			],
 		}),
 	],

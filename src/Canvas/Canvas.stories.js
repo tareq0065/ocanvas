@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Canvas from './Canvas';
+import { Canvas } from './Canvas';
 import { Layer } from '../components/Layer';
 
 export default {
@@ -69,6 +69,23 @@ export const CanvasStory = () => {
 						src="https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928__480.jpg"
 					/>
 				</div>
+				<Layer
+					ratio={ratio}
+					id={4}
+					name="fadeIn"
+					width="50%"
+					height="50%"
+					delay={2}
+					from={{ opacity: 0, transform: 'scale(0)' }}
+					to={{ opacity: 1, transform: 'scale(1)' }}
+					iteration={1}
+				>
+					<iframe
+						width={ratio.width / 2}
+						height={ratio.height / 2}
+						src="https://www.youtube.com/embed/lZizLbWxr_E"
+					/>
+				</Layer>
 			</Layer>
 		</Canvas>
 	);

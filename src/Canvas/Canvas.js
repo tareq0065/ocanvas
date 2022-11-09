@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './Canvas.scss';
 import useWindowDimensions from '../../util/useWindowDimensions';
 import { Scene } from 'react-scenejs';
+import { useScript } from '../../util/useScript';
 
 const Canvas = ({ children, width, height }) => {
 	const canvasRef = useRef(null);
@@ -14,6 +15,10 @@ const Canvas = ({ children, width, height }) => {
 		width: windowWidth,
 		scale,
 	} = useWindowDimensions(canvasRef, width, height);
+	useScript('./public/effects.min.js');
+	useScript('./public/media.min.js');
+	useScript('./public/shape.min.js');
+	useScript('./public/scene.min.js');
 
 	useEffect(() => {
 		console.log('sceneRef:', sceneRef.current);
