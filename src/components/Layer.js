@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { SceneItem, EASE_IN_OUT } from 'react-scenejs';
 import '../Canvas/Canvas.scss';
+import { JsCanvasContext } from '../../util/useJsCanvas';
 
 const Layer = ({
 	children,
@@ -10,13 +10,27 @@ const Layer = ({
 	ratio,
 	width,
 	height,
-	from,
-	to,
+	keyframes,
+	style,
+	layerStyle,
 	playSpeed,
 	delay,
 	autoPlay,
 	iteration,
 }) => {
+	const jsCanvas = useContext(JsCanvasContext);
+
+	useEffect(() => {
+		const newItem = jsCanvas.newItem(`.Layer-${name}`, { selector: true });
+		newItem.set({
+			...keyframes,
+			options: {
+				delay: delay,
+				iteration: iteration,
+			},
+		});
+	}, []);
+
 	return (
 		<div
 			data-testid={`Layer-${name}`}
@@ -27,21 +41,25 @@ const Layer = ({
 				top: 0,
 				bottom: 0,
 				margin: 'auto',
+				...layerStyle,
 			}}
 		>
-			<SceneItem
-				from={from}
-				to={to}
-				delay={delay}
-				ref={(e) => (window.e = e)}
-				duration={1.5}
-				easing={EASE_IN_OUT}
-				iterationCount={iteration}
-				css
-				autoplay
+			<div
+				style={{
+					position: 'absolute',
+					width: width,
+					height: height,
+					left: 0,
+					right: 0,
+					top: 0,
+					bottom: 0,
+					margin: 'auto',
+					...style,
+				}}
+				className={`Layer-${name}`}
 			>
 				{children}
-			</SceneItem>
+			</div>
 		</div>
 	);
 };
@@ -56,6 +74,8 @@ Layer.defaultProps = {
 	width: 300,
 	height: 300,
 	keyframes: {},
+	style: {},
+	layerStyle: {},
 	playSpeed: 1,
 	delay: 0,
 	autoPlay: false,
@@ -69,8 +89,9 @@ Layer.propTypes = {
 	ratio: PropTypes.object,
 	width: PropTypes.any,
 	height: PropTypes.any,
-	from: PropTypes.any,
-	to: PropTypes.any,
+	keyframes: PropTypes.object,
+	style: PropTypes.object,
+	layerStyle: PropTypes.object,
 	playSpeed: PropTypes.number,
 	delay: PropTypes.number,
 	autoPlay: PropTypes.bool,

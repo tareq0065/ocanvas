@@ -3,7 +3,7 @@ import { Canvas } from './Canvas';
 import { Layer } from '../components/Layer';
 
 export default {
-	title: 'Canvas',
+	title: 'Canvas Raindrop',
 };
 
 export const CanvasStory = () => {
@@ -38,7 +38,7 @@ export const CanvasStory = () => {
 			/>
 			<Layer
 				ratio={ratio}
-				id={1}
+				id={0}
 				name="raindrop2"
 				width={300}
 				height={300}
@@ -61,7 +61,7 @@ export const CanvasStory = () => {
 			/>
 			<Layer
 				ratio={ratio}
-				id={2}
+				id={0}
 				name="raindrop3"
 				width={300}
 				height={300}
@@ -84,7 +84,7 @@ export const CanvasStory = () => {
 			/>
 			<Layer
 				ratio={ratio}
-				id={3}
+				id={0}
 				name="raindrop3"
 				width={300}
 				height={300}
@@ -105,49 +105,6 @@ export const CanvasStory = () => {
 				}}
 				iteration={1}
 			/>
-
-			<Layer
-				ratio={ratio}
-				id={4}
-				name="fadein"
-				width="100%"
-				height="100%"
-				delay={0.2}
-				keyframes={{
-					2.6: {
-						opacity: 0,
-						transform: 'scale(0)',
-					},
-					3.5: { opacity: 1, transform: 'scale(1)' },
-				}}
-				iteration={1}
-			>
-				<img
-					width="100%"
-					src="https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928__480.jpg"
-				/>
-			</Layer>
-			<Layer
-				ratio={ratio}
-				id={5}
-				name="fadein2"
-				width="50%"
-				height="50%"
-				delay={0.3}
-				keyframes={{
-					4.3: {
-						opacity: 0,
-						transform: 'scale(0)',
-					},
-					4.9: { opacity: 1, transform: 'scale(1)' },
-				}}
-				iteration={1}
-			>
-				<img
-					width="100%"
-					src="https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928__480.jpg"
-				/>
-			</Layer>
 		</Canvas>
 	);
 };

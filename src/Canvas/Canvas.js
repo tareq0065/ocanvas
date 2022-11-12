@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import './Canvas.scss';
 import useWindowDimensions from '../../util/useWindowDimensions';
-import { Scene } from 'react-scenejs';
-import { useScript } from '../../util/useScript';
+import Scene from 'scenejs';
+import { JsCanvasContext } from '../../util/useJsCanvas';
 
-const Canvas = ({ children, width, height }) => {
+const CanvasContainer = ({ children, width, height }) => {
+	const jsCanvas = useContext(JsCanvasContext);
 	const canvasRef = useRef(null);
-	const sceneRef = useRef();
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [progress, setProgress] = useState(0);
 	const {
@@ -15,34 +15,20 @@ const Canvas = ({ children, width, height }) => {
 		width: windowWidth,
 		scale,
 	} = useWindowDimensions(canvasRef, width, height);
-	useScript(
-		'https://raw.githubusercontent.com/tareq0065/ocanvas/main/public/effects.min.js'
-	);
-	useScript(
-		'https://raw.githubusercontent.com/tareq0065/ocanvas/main/public/media.min.js'
-	);
-	useScript(
-		'https://raw.githubusercontent.com/tareq0065/ocanvas/main/public/shape.min.js'
-	);
-	useScript(
-		'https://raw.githubusercontent.com/tareq0065/ocanvas/main/public/scene.min.js'
-	);
 
 	useEffect(() => {
-		console.log('sceneRef:', sceneRef.current);
-		let duration = sceneRef.current.getDuration();
+		let duration = jsCanvas.getDuration();
 		console.log('duration:', duration);
-
-		sceneRef.current.events.play((e) => {
+		jsCanvas.on('play', (e) => {
 			setIsPlaying(true);
 		});
-		sceneRef.current.events.paused((e) => {
+		jsCanvas.on('paused', (e) => {
 			setIsPlaying(false);
 		});
-		sceneRef.current.events.animate((e) => {
+		jsCanvas.on('animate', (e) => {
 			setProgress((100 * e.time) / duration);
 		});
-	}, [sceneRef.current]);
+	}, []);
 
 	return (
 		<div id="canvasContainer">
@@ -69,35 +55,30 @@ const Canvas = ({ children, width, height }) => {
 								height: height,
 							}}
 						>
-							<Scene ready autoplay ref={sceneRef}>
-								{children}
-							</Scene>
+							{children}
 						</div>
 					</div>
 				</div>
 			</div>
-			<div
-				style={{
-					position: 'absolute',
-					bottom: 20,
-					margin: 0,
-					left: 0,
-					right: 0,
-				}}
-			>
-				<div className="player">
+			<div className="playerWrapper">
+				<div
+					className="player"
+					style={{
+						width: windowWidth,
+					}}
+				>
 					<div
 						className={`${isPlaying ? 'pause' : 'play'}`}
 						onClick={() => {
-							// jsscene.isPaused() ? jsscene.play() : jsscene.pause();
+							jsCanvas.isPaused() ? jsCanvas.play() : jsCanvas.pause();
 						}}
 					/>
 					<input
 						className="progress"
 						type="range"
 						onChange={(e) => {
-							// jsscene.pause();
-							// jsscene.setTime(e.target.value + '%');
+							jsCanvas.pause();
+							jsCanvas.setTime(e.target.value + '%');
 						}}
 						value={progress}
 						min="0"
@@ -106,6 +87,25 @@ const Canvas = ({ children, width, height }) => {
 				</div>
 			</div>
 		</div>
+	);
+};
+
+const Canvas = ({ children, width, height }) => {
+	return (
+		<JsCanvasContext.Provider
+			value={new Scene(
+				{},
+				{
+					easing: Scene.EASE_IN_OUT,
+					iterationCount: 1,
+					selector: true,
+				}
+			).setTime(0)}
+		>
+			<CanvasContainer height={height} width={width}>
+				{children}
+			</CanvasContainer>
+		</JsCanvasContext.Provider>
 	);
 };
 

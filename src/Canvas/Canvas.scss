@@ -52,10 +52,22 @@
 
 //Player
 
+.playerWrapper {
+  position: absolute;
+  bottom: 20px;
+  margin: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+}
+
 .player {
   position: relative;
-  text-align: center;
+  align-items: center;
+  display: flex;
 }
+
 .circles .circle {
   position: absolute;
   top: 50%;
@@ -87,13 +99,14 @@
 }
 
 .player input[type=range] {
-  width: 200px;
+  flex: auto;
 }
 
 .player input[type=range] {
   -webkit-appearance: none;
   background: rgba(0, 0, 0, 0.2);
-  height: 5px;
+  height: 3px;
+  margin-left: 10px;
 }
 
 .player input[type=range]::-webkit-slider-thumb {
@@ -108,17 +121,6 @@
   outline: none;
 }
 
-
-.Layer-circle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 200px;
-  height: 200px;
-  border: 100px solid black;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
 
 .raindrop {
   position: absolute;

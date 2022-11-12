@@ -1,26 +1,46 @@
 import React, { useState } from 'react';
 import { Layer } from './Layer';
+import { JsCanvasContext } from '../../util/useJsCanvas';
+import Scene from 'scenejs';
 
 export default {
-	title: 'Canvas',
+	title: 'Canvas Layer',
 };
 
 export const LayerStory = () => {
 	return (
-		<Layer
-			ratio={{
-				width: 1920,
-				height: 1080,
-			}}
-			id={1}
-			name="raindrop"
-			width={300}
-			height={300}
-			delay={0}
-			from={{ borderWidth: '150px', opacity: 1, transform: 'scale(0)' }}
-			to={{ borderWidth: '0px', opacity: 0, transform: 'scale(0.7)' }}
+		<JsCanvasContext.Provider
+			value={new Scene(
+				{},
+				{
+					easing: 'ease-in-out',
+					fillMode: 'forwards',
+					selector: true,
+				}
+			).setTime(0)}
 		>
-			<div className="raindrop" />
-		</Layer>
+			<Layer
+				id={1}
+				name="raindrop"
+				width={300}
+				height={300}
+				delay={0.4}
+				keyframes={{
+					0: {
+						'border-width': '150px',
+						opacity: 1,
+						transform: 'translate(0, 0) scale(0)',
+					},
+					1.5: { 'border-width': '0px', opacity: 0.3, transform: 'scale(0.7)' },
+				}}
+				style={{
+					border: '100px solid black',
+					borderRadius: '50%',
+					boxSizing: 'border-box',
+					transform: 'scale(0)',
+				}}
+				iteration="infinite"
+			></Layer>
+		</JsCanvasContext.Provider>
 	);
 };

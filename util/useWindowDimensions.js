@@ -25,15 +25,6 @@ export default function useWindowDimensions(
 				width: getWindowDimensions().width / (16 / 9),
 			};
 
-			// theRatio.parentWidth = Math.round(
-			// 	(maxWidth / 2) * (refData.height / refData.width)
-			// );
-			// theRatio.parentHeight = Math.round(
-			// 	(maxHeight / 2) * (refData.height / refData.width)
-			// );
-
-			// if (theRatio.parentHeight < )
-
 			theRatio.scale = Math.min(
 				theRatio.width / maxWidth,
 				theRatio.height / maxHeight
