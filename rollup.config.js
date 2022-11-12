@@ -4,6 +4,7 @@ const commonjs = require('@rollup/plugin-commonjs');
 const postcss = require('rollup-plugin-postcss');
 const copy = require('rollup-plugin-copy');
 const babel = require('rollup-plugin-babel');
+const { terser } = require('rollup-plugin-terser');
 const { uglify } = require('rollup-plugin-uglify');
 
 const packageJson = require('./package.json');
@@ -27,6 +28,14 @@ module.exports = {
 			format: 'esm',
 			sourcemap: true,
 		},
+		{
+			file: 'dist/ocanvas.js',
+			format: 'umd',
+			name: packageJson.name,
+			esModule: false,
+			exports: 'named',
+			sourcemap: true,
+		},
 	],
 	plugins: [
 		peerDepsExternal(),
@@ -34,7 +43,8 @@ module.exports = {
 			browser: true,
 		}),
 		babel({
-			babelrc: true,
+			babelrc: false,
+			configFile: false,
 			presets: [
 				['@babel/preset-env', { modules: false }],
 				'@babel/preset-react',
@@ -43,6 +53,7 @@ module.exports = {
 			exclude: 'node_modules/**',
 			runtimeHelpers: true,
 		}),
+		terser(),
 		commonjs({
 			include: /node_modules/,
 		}),

@@ -19,6 +19,7 @@ const CanvasContainer = ({ children, width, height }) => {
 	useEffect(() => {
 		let duration = jsCanvas.getDuration();
 		console.log('duration:', duration);
+		console.log('children:', children[0].props);
 		jsCanvas.on('play', (e) => {
 			setIsPlaying(true);
 		});
@@ -41,6 +42,7 @@ const CanvasContainer = ({ children, width, height }) => {
 					}}
 				>
 					<div
+						id="Composition"
 						className="Composition"
 						style={{
 							width: width,
