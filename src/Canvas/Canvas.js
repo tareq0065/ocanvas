@@ -5,7 +5,15 @@ import useWindowDimensions from '../../util/useWindowDimensions';
 import Scene from 'scenejs';
 import { JsCanvasContext } from '../../util/useJsCanvas';
 
-const CanvasContainer = ({ children, width, height, jsCanva, autoPlay }) => {
+const CanvasContainer = ({
+	children,
+	width,
+	height,
+	jsCanva,
+	autoPlay,
+	controls,
+	fullWidth,
+}) => {
 	const jsCanvas = useContext(JsCanvasContext);
 	const canvasRef = useRef(null);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -22,6 +30,7 @@ const CanvasContainer = ({ children, width, height, jsCanva, autoPlay }) => {
 
 		if (autoPlay) {
 			jsCanvas.play();
+			setIsPlaying(true);
 		}
 
 		jsCanvas.on('play', (e) => {
@@ -40,19 +49,33 @@ const CanvasContainer = ({ children, width, height, jsCanva, autoPlay }) => {
 			<div className="Canvas" id="recorderCanvas" ref={canvasRef}>
 				<div
 					className="CanvasInner"
-					style={{
-						width: windowWidth,
-						height: windowHeight,
-					}}
+					style={
+						fullWidth
+							? {
+									width: '100%',
+									height: '100%',
+							  }
+							: {
+									width: windowWidth,
+									height: windowHeight,
+							  }
+					}
 				>
 					<div
 						id="Composition"
 						className="Composition"
-						style={{
-							width: width,
-							height: height,
-							transform: `translate(-50%, -50%) scale(${scale})`,
-						}}
+						style={
+							fullWidth
+								? {
+										width: width,
+										height: height,
+								  }
+								: {
+										width: width,
+										height: height,
+										transform: `translate(-50%, -50%) scale(${scale})`,
+								  }
+						}
 					>
 						<div
 							className="Layers"
@@ -66,37 +89,47 @@ const CanvasContainer = ({ children, width, height, jsCanva, autoPlay }) => {
 					</div>
 				</div>
 			</div>
-			<div className="playerWrapper">
-				<div
-					className="player"
-					style={{
-						width: windowWidth,
-					}}
-				>
+			{controls && (
+				<div className="playerWrapper">
 					<div
-						className={`${isPlaying ? 'pause' : 'play'}`}
-						onClick={() => {
-							jsCanvas.isPaused() ? jsCanvas.play() : jsCanvas.pause();
+						className="player"
+						style={{
+							width: windowWidth,
 						}}
-					/>
-					<input
-						className="progress"
-						type="range"
-						onChange={(e) => {
-							jsCanvas.pause();
-							jsCanvas.setTime(e.target.value + '%');
-						}}
-						value={progress}
-						min="0"
-						max="100"
-					/>
+					>
+						<div
+							className={`${isPlaying ? 'pause' : 'play'}`}
+							onClick={() => {
+								jsCanvas.isPaused() ? jsCanvas.play() : jsCanvas.pause();
+							}}
+						/>
+						<input
+							className="progress"
+							type="range"
+							onChange={(e) => {
+								jsCanvas.pause();
+								jsCanvas.setTime(e.target.value + '%');
+							}}
+							value={progress.toString()}
+							min="0"
+							max="100"
+						/>
+					</div>
 				</div>
-			</div>
+			)}
 		</div>
 	);
 };
 
-const Canvas = ({ children, width, height, jsCanva, autoPlay }) => {
+const Canvas = ({
+	children,
+	width,
+	height,
+	jsCanva,
+	autoPlay,
+	controls,
+	fullWidth,
+}) => {
 	return (
 		<JsCanvasContext.Provider
 			value={new Scene(
@@ -112,7 +145,9 @@ const Canvas = ({ children, width, height, jsCanva, autoPlay }) => {
 				height={height}
 				width={width}
 				autoPlay={autoPlay}
+				controls={controls}
 				jsCanva={jsCanva}
+				fullWidth={fullWidth}
 			>
 				{children}
 			</CanvasContainer>
@@ -125,7 +160,9 @@ Canvas.defaultProps = {
 	height: 1080,
 	children: [],
 	autoPlay: false,
+	controls: true,
 	jsCanva: () => {},
+	fullWidth: false,
 };
 
 Canvas.propTypes = {
@@ -133,7 +170,9 @@ Canvas.propTypes = {
 	height: PropTypes.number,
 	children: PropTypes.any,
 	autoPlay: PropTypes.bool,
+	controls: PropTypes.bool,
 	jsCanva: PropTypes.any,
+	fullWidth: PropTypes.bool,
 };
 
 export { Canvas };
