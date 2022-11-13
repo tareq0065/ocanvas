@@ -5,7 +5,7 @@ import useWindowDimensions from '../../util/useWindowDimensions';
 import Scene from 'scenejs';
 import { JsCanvasContext } from '../../util/useJsCanvas';
 
-const CanvasContainer = ({ children, width, height }) => {
+const CanvasContainer = ({ children, width, height, jsCanva }) => {
 	const jsCanvas = useContext(JsCanvasContext);
 	const canvasRef = useRef(null);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -18,8 +18,8 @@ const CanvasContainer = ({ children, width, height }) => {
 
 	useEffect(() => {
 		let duration = jsCanvas.getDuration();
-		console.log('duration:', duration);
-		console.log('children:', children[0].props);
+		jsCanva(jsCanvas);
+
 		jsCanvas.on('play', (e) => {
 			setIsPlaying(true);
 		});
@@ -92,7 +92,7 @@ const CanvasContainer = ({ children, width, height }) => {
 	);
 };
 
-const Canvas = ({ children, width, height }) => {
+const Canvas = ({ children, width, height, play, playing, jsCanva }) => {
 	return (
 		<JsCanvasContext.Provider
 			value={new Scene(
@@ -104,17 +104,31 @@ const Canvas = ({ children, width, height }) => {
 				}
 			).setTime(0)}
 		>
-			<CanvasContainer height={height} width={width}>
+			<CanvasContainer
+				height={height}
+				width={width}
+				play={play}
+				playing={playing}
+				jsCanva={jsCanva}
+			>
 				{children}
 			</CanvasContainer>
 		</JsCanvasContext.Provider>
 	);
 };
 
+Canvas.defaultProps = {
+	width: 1920,
+	height: 1080,
+	children: [],
+	jsCanva: () => {},
+};
+
 Canvas.propTypes = {
 	width: PropTypes.number,
 	height: PropTypes.number,
 	children: PropTypes.any,
+	jsCanva: PropTypes.any,
 };
 
 export { Canvas };

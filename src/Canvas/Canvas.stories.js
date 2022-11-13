@@ -6,13 +6,20 @@ export default {
 	title: 'Canvas',
 };
 
-export const CanvasStory = () => {
+export const BaseCanvas = () => {
 	const [ratio, setRatio] = useState({
 		width: 1920,
 		height: 1080,
 	});
 	return (
-		<Canvas width={ratio.width} height={ratio.height}>
+		<Canvas
+			width={ratio.width}
+			height={ratio.height}
+			jsCanva={(jsCanva) => {
+				console.log('jsCanva:', jsCanva.play());
+				console.log('jsCanva.play():', jsCanva.play());
+			}}
+		>
 			<Layer
 				ratio={ratio}
 				id={0}
