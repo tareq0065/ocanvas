@@ -12,14 +12,7 @@ export const BaseCanvas = () => {
 		height: 1080,
 	});
 	return (
-		<Canvas
-			width={ratio.width}
-			height={ratio.height}
-			jsCanva={(jsCanva) => {
-				console.log('jsCanva:', jsCanva.play());
-				console.log('jsCanva.play():', jsCanva.play());
-			}}
-		>
+		<Canvas width={ratio.width} height={ratio.height} autoPlay>
 			<Layer
 				ratio={ratio}
 				id={0}

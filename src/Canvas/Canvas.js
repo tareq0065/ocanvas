@@ -5,7 +5,7 @@ import useWindowDimensions from '../../util/useWindowDimensions';
 import Scene from 'scenejs';
 import { JsCanvasContext } from '../../util/useJsCanvas';
 
-const CanvasContainer = ({ children, width, height, jsCanva }) => {
+const CanvasContainer = ({ children, width, height, jsCanva, autoPlay }) => {
 	const jsCanvas = useContext(JsCanvasContext);
 	const canvasRef = useRef(null);
 	const [isPlaying, setIsPlaying] = useState(false);
@@ -20,6 +20,10 @@ const CanvasContainer = ({ children, width, height, jsCanva }) => {
 		let duration = jsCanvas.getDuration();
 		jsCanva(jsCanvas);
 
+		if (autoPlay) {
+			jsCanvas.play();
+		}
+
 		jsCanvas.on('play', (e) => {
 			setIsPlaying(true);
 		});
@@ -29,7 +33,7 @@ const CanvasContainer = ({ children, width, height, jsCanva }) => {
 		jsCanvas.on('animate', (e) => {
 			setProgress((100 * e.time) / duration);
 		});
-	}, []);
+	}, [autoPlay]);
 
 	return (
 		<div id="canvasContainer">
@@ -92,7 +96,7 @@ const CanvasContainer = ({ children, width, height, jsCanva }) => {
 	);
 };
 
-const Canvas = ({ children, width, height, play, playing, jsCanva }) => {
+const Canvas = ({ children, width, height, jsCanva, autoPlay }) => {
 	return (
 		<JsCanvasContext.Provider
 			value={new Scene(
@@ -107,8 +111,7 @@ const Canvas = ({ children, width, height, play, playing, jsCanva }) => {
 			<CanvasContainer
 				height={height}
 				width={width}
-				play={play}
-				playing={playing}
+				autoPlay={autoPlay}
 				jsCanva={jsCanva}
 			>
 				{children}
@@ -121,6 +124,7 @@ Canvas.defaultProps = {
 	width: 1920,
 	height: 1080,
 	children: [],
+	autoPlay: false,
 	jsCanva: () => {},
 };
 
@@ -128,6 +132,7 @@ Canvas.propTypes = {
 	width: PropTypes.number,
 	height: PropTypes.number,
 	children: PropTypes.any,
+	autoPlay: PropTypes.bool,
 	jsCanva: PropTypes.any,
 };
 
