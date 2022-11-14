@@ -73,7 +73,9 @@ const CanvasContainer = ({
 								: {
 										width: width,
 										height: height,
-										transform: `translate(-50%, -50%) scale(${scale})`,
+										transform: `translate(-50%, -50%) scale(${
+											scale ? scale : 1
+										})`,
 								  }
 						}
 					>
