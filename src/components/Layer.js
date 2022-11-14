@@ -79,7 +79,7 @@ Layer.defaultProps = {
 	playSpeed: 1,
 	delay: 0,
 	autoPlay: false,
-	children: () => <></>,
+	children: <></>,
 	iteration: 'infinite',
 };
 
