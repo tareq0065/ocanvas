@@ -15,11 +15,15 @@ const Layer = ({
 	delay,
 	autoPlay,
 	iteration,
+	uid,
 }) => {
 	const jsCanvas = useContext(JsCanvasContext);
 
 	useEffect(() => {
-		const newItem = jsCanvas.newItem(`.Layer-${name}`, { selector: true });
+		const newItem = jsCanvas.newItem(
+			`.Layer-${name.replaceAll(' ', '_') + uid}`,
+			{ selector: true }
+		);
 		newItem.set({
 			...keyframes,
 			options: {
@@ -31,19 +35,12 @@ const Layer = ({
 
 	return (
 		<div
-			data-testid={`Layer-${name}`}
+			data-testid={`Layer-${name.replaceAll(' ', '_') + uid}`}
 			style={{
-				position: 'absolute',
-				width: ratio.width,
-				height: ratio.height,
-				left: 0,
-				right: 0,
-				top: 0,
-				bottom: 0,
 				margin: 'auto',
 				...style,
 			}}
-			className={`Layer-${name}`}
+			className={`Layer-${name.replaceAll(' ', '_') + uid}`}
 		>
 			{children}
 		</div>
@@ -65,6 +62,7 @@ Layer.defaultProps = {
 	autoPlay: false,
 	children: null,
 	iteration: 'infinite',
+	uid: Math.floor(Math.random() * 1000 + 1),
 };
 
 Layer.propTypes = {
