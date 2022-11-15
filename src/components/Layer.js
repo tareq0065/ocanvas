@@ -15,9 +15,9 @@ const Layer = ({
 	delay,
 	autoPlay,
 	iteration,
-	uid,
 }) => {
 	const jsCanvas = useContext(JsCanvasContext);
+	const uid = Math.floor(Math.random() * 1000 + 1);
 
 	useEffect(() => {
 		const newItem = jsCanvas.newItem(
@@ -62,7 +62,6 @@ Layer.defaultProps = {
 	autoPlay: false,
 	children: <div />,
 	iteration: 'infinite',
-	uid: Math.floor(Math.random() * 1000 + 1),
 };
 
 Layer.propTypes = {
