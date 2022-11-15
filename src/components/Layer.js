@@ -36,30 +36,18 @@ const Layer = ({
 			data-testid={`Layer-${name}`}
 			style={{
 				position: 'absolute',
+				width: ratio.width,
+				height: ratio.height,
 				left: 0,
 				right: 0,
 				top: 0,
 				bottom: 0,
 				margin: 'auto',
-				...layerStyle,
+				...style,
 			}}
+			className={`Layer-${name}`}
 		>
-			<div
-				style={{
-					position: 'absolute',
-					width: width,
-					height: height,
-					left: 0,
-					right: 0,
-					top: 0,
-					bottom: 0,
-					margin: 'auto',
-					...style,
-				}}
-				className={`Layer-${name}`}
-			>
-				{children}
-			</div>
+			{children}
 		</div>
 	);
 };
