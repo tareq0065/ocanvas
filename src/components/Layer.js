@@ -17,9 +17,10 @@ const Layer = ({
 	iteration,
 }) => {
 	const jsCanvas = useContext(JsCanvasContext);
+	const baseName = name.replaceAll(' ', '_') + id;
 
 	useEffect(() => {
-		const newItem = jsCanvas.newItem(`.Layer-${name}`, { selector: true });
+		const newItem = jsCanvas.newItem(`.Layer-${baseName}`, { selector: true });
 		newItem.set({
 			...keyframes,
 			options: {
@@ -31,7 +32,8 @@ const Layer = ({
 
 	return (
 		<div
-			data-testid={`Layer-${name}`}
+			data-testid={`Layer-${baseName}`}
+			className={`Layer-${baseName}`}
 			style={{
 				position: 'absolute',
 				width: width,
@@ -43,7 +45,6 @@ const Layer = ({
 				margin: 'auto',
 				...style,
 			}}
-			className={`Layer-${name}`}
 		>
 			{children}
 		</div>
