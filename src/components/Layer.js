@@ -60,7 +60,7 @@ Layer.defaultProps = {
 	playSpeed: 1,
 	delay: 0,
 	autoPlay: false,
-	children: null,
+	children: <div />,
 	iteration: 'infinite',
 	uid: Math.floor(Math.random() * 1000 + 1),
 };
