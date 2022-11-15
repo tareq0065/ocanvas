@@ -36,8 +36,8 @@ const Layer = ({
 			className={`Layer-${baseName}`}
 			style={{
 				position: 'absolute',
-				width: width,
-				height: height,
+				width: ratio.width,
+				height: ratio.height,
 				left: 0,
 				right: 0,
 				top: 0,
