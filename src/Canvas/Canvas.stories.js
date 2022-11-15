@@ -16,19 +16,29 @@ export const BaseCanvas = () => {
 			<Layer
 				ratio={ratio}
 				id={1}
-				name="fadein"
+				name={
+					`fade in`.replaceAll(' ', '_') + Math.floor(Math.random() * 1000 + 1)
+				}
 				width="50%"
 				height="50%"
-				delay={10}
+				delay={0}
 				style={{
 					opacity: 0,
 				}}
 				keyframes={{
-					10: {
+					0: {
 						opacity: 0,
 						transform: 'scale(0)',
 					},
-					10.9: { opacity: 1, transform: 'scale(1)' },
+					2.8: {
+						opacity: 1,
+						transform: 'scale(1)',
+					},
+					3.8: {
+						opacity: 1,
+						transform: 'scale(1.5)',
+					},
+					4.5: { opacity: 0 },
 				}}
 				iteration={1}
 			>

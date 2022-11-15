@@ -17,13 +17,9 @@ const Layer = ({
 	iteration,
 }) => {
 	const jsCanvas = useContext(JsCanvasContext);
-	const uid = Math.floor(Math.random() * 1000 + 1);
 
 	useEffect(() => {
-		const newItem = jsCanvas.newItem(
-			`.Layer-${name.replaceAll(' ', '_') + uid}`,
-			{ selector: true }
-		);
+		const newItem = jsCanvas.newItem(`.Layer-${name}`, { selector: true });
 		newItem.set({
 			...keyframes,
 			options: {
@@ -35,12 +31,12 @@ const Layer = ({
 
 	return (
 		<div
-			data-testid={`Layer-${name.replaceAll(' ', '_') + uid}`}
+			data-testid={`Layer-${name}`}
 			style={{
 				margin: 'auto',
 				...style,
 			}}
-			className={`Layer-${name.replaceAll(' ', '_') + uid}`}
+			className={`Layer-${name}`}
 		>
 			{children}
 		</div>
