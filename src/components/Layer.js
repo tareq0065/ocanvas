@@ -20,7 +20,10 @@ const Layer = ({
 	const baseName = name.replaceAll(' ', '_') + id;
 
 	useEffect(() => {
-		const newItem = jsCanvas.newItem(`.Layer-${baseName}`, { selector: true });
+		const newItem = jsCanvas.newItem(`.Layer-${baseName}`, {
+			selector: true,
+			delay: delay,
+		});
 		newItem.set({
 			...keyframes,
 			options: {
@@ -28,7 +31,7 @@ const Layer = ({
 				iteration: iteration,
 			},
 		});
-	}, [delay, keyframes, iteration]);
+	}, [name, keyframes, iteration]);
 
 	return (
 		<div
@@ -76,7 +79,7 @@ Layer.propTypes = {
 	style: PropTypes.object,
 	layerStyle: PropTypes.object,
 	playSpeed: PropTypes.number,
-	delay: PropTypes.number,
+	delay: PropTypes.number || PropTypes.string,
 	autoPlay: PropTypes.bool,
 	children: PropTypes.any,
 	iteration: PropTypes.any,

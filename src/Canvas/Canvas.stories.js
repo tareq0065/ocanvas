@@ -19,7 +19,7 @@ export const BaseCanvas = () => {
 				name={
 					`fade in`.replaceAll(' ', '_') + Math.floor(Math.random() * 1000 + 1)
 				}
-				delay={0}
+				delay={5}
 				style={{
 					opacity: 0,
 				}}
@@ -29,51 +29,6 @@ export const BaseCanvas = () => {
 						transform: 'translate(-50%, 0)',
 					},
 					0.9: { opacity: 1, transform: 'translate(0, 0)' },
-				}}
-				iteration={1}
-			>
-				<img
-					width="100%"
-					src="https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928__480.jpg"
-				/>
-			</Layer>
-
-			<Layer
-				ratio={ratio}
-				id={2}
-				name={
-					`fade in up`.replaceAll(' ', '_') +
-					Math.floor(Math.random() * 1000 + 1)
-				}
-				delay={1}
-				style={{
-					opacity: 0,
-				}}
-				keyframes={{
-					1: { opacity: 1, transform: 'translate(0, -100%)' },
-					1.9: { opacity: 1, transform: 'translate(0, 0)' },
-				}}
-				iteration={1}
-			>
-				<img
-					width="100%"
-					src="https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928__480.jpg"
-				/>
-			</Layer>
-			<Layer
-				ratio={ratio}
-				id={3}
-				name={
-					`split layer`.replaceAll(' ', '_') +
-					Math.floor(Math.random() * 1000 + 1)
-				}
-				delay={1}
-				style={{
-					opacity: 0,
-				}}
-				keyframes={{
-					1: { opacity: 1, transform: 'translate(0, -100%)' },
-					1.9: { opacity: 1, transform: 'translate(0, 0)' },
 				}}
 				iteration={1}
 			>
