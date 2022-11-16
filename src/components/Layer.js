@@ -28,7 +28,7 @@ const Layer = ({
 				iteration: iteration,
 			},
 		});
-	}, []);
+	}, [delay, keyframes, iteration]);
 
 	return (
 		<div
