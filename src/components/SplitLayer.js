@@ -1,10 +1,10 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../Canvas/Canvas.scss';
 import { JsCanvasContext } from '../../util/useJsCanvas';
+import { Layer } from './Layer';
 
-const Layer = ({
-	children,
+const SplitLayer = ({
 	name,
 	id,
 	ratio,
@@ -13,25 +13,30 @@ const Layer = ({
 	layerStyle,
 	playSpeed,
 	delay,
-	autoPlay,
 	iteration,
+	splitLayers,
 }) => {
 	const jsCanvas = useContext(JsCanvasContext);
 	const baseName = name.replaceAll(' ', '_') + id;
+	const [childLayers, setChildLayers] = useState([]);
 
 	useEffect(() => {
-		const newItem = jsCanvas.newItem(`.Layer-${baseName}`, {
-			selector: true,
-			delay: delay,
-			playSpeed: playSpeed,
-		});
-		newItem.set({
-			...keyframes,
-			options: {
+		console.log('splitLayers', splitLayers);
+		splitLayers.forEach((sItem, sIndex) => {
+			const sItemBaseName = sItem?.name.replaceAll(' ', '_') + id;
+			const newItem = jsCanvas.newItem(`.Layer-${sItemBaseName}`, {
+				selector: true,
 				delay: delay,
-				iteration: iteration,
 				playSpeed: playSpeed,
-			},
+			});
+			newItem.set({
+				...keyframes,
+				options: {
+					delay: delay,
+					iteration: iteration,
+					playSpeed: playSpeed,
+				},
+			});
 		});
 	}, [name, keyframes, iteration]);
 
@@ -51,12 +56,12 @@ const Layer = ({
 				...style,
 			}}
 		>
-			{children}
+			{}
 		</div>
 	);
 };
 
-Layer.defaultProps = {
+SplitLayer.defaultProps = {
 	name: 'animation',
 	id: 1,
 	ratio: {
@@ -68,12 +73,11 @@ Layer.defaultProps = {
 	layerStyle: {},
 	playSpeed: 1,
 	delay: 0,
-	autoPlay: false,
-	children: <div />,
 	iteration: 'infinite',
+	splitLayers: [],
 };
 
-Layer.propTypes = {
+SplitLayer.propTypes = {
 	name: PropTypes.string,
 	id: PropTypes.number,
 	ratio: PropTypes.object,
@@ -82,9 +86,8 @@ Layer.propTypes = {
 	layerStyle: PropTypes.object,
 	playSpeed: PropTypes.number,
 	delay: PropTypes.number || PropTypes.string,
-	autoPlay: PropTypes.bool,
-	children: PropTypes.any,
 	iteration: PropTypes.any,
+	splitLayers: PropTypes.array,
 };
 
-export { Layer };
+export { SplitLayer };
