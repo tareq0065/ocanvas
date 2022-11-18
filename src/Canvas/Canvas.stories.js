@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Canvas } from './Canvas';
 import { Layer } from '../components/Layer';
+import { AudioLayer } from '../components/AudioLayer';
 
 export default {
 	title: 'Canvas',
@@ -12,20 +13,14 @@ export const BaseCanvas = () => {
 		height: 1080,
 	});
 	return (
-		<Canvas
-			width={ratio.width}
-			height={ratio.height}
-			playing={(playing) => {
-				console.log('playing', playing);
-			}}
-		>
+		<Canvas width={ratio.width} height={ratio.height}>
 			<Layer
 				ratio={ratio}
 				id={1}
 				name={
 					`fade in`.replaceAll(' ', '_') + Math.floor(Math.random() * 1000 + 1)
 				}
-				delay={5}
+				delay={7}
 				style={{
 					opacity: 0,
 				}}
@@ -43,6 +38,7 @@ export const BaseCanvas = () => {
 					src="https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928__480.jpg"
 				/>
 			</Layer>
+			<AudioLayer id={3} delay={0} seekEnd={1} />
 		</Canvas>
 	);
 };

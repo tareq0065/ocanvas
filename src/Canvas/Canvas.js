@@ -13,8 +13,6 @@ const CanvasContainer = ({
 	autoPlay,
 	controls,
 	fullWidth,
-	playing,
-	animationProgress,
 }) => {
 	const jsCanvas = useContext(JsCanvasContext);
 	const canvasRef = useRef(null);
@@ -29,7 +27,6 @@ const CanvasContainer = ({
 	useEffect(() => {
 		let duration = jsCanvas.getDuration();
 		jsCanva(jsCanvas);
-		console.log('duration', duration);
 
 		if (autoPlay) {
 			jsCanvas.play();
@@ -38,15 +35,12 @@ const CanvasContainer = ({
 
 		jsCanvas.on('play', (e) => {
 			setIsPlaying(true);
-			playing(true);
 		});
 		jsCanvas.on('paused', (e) => {
 			setIsPlaying(false);
-			playing(false);
 		});
 		jsCanvas.on('animate', (e) => {
 			setProgress((100 * e.time) / duration);
-			animationProgress((100 * e.time) / duration);
 		});
 	}, []);
 
@@ -137,8 +131,6 @@ const Canvas = ({
 	autoPlay,
 	controls,
 	fullWidth,
-	playing,
-	animationProgress,
 }) => {
 	return (
 		<JsCanvasContext.Provider
@@ -158,8 +150,6 @@ const Canvas = ({
 				controls={controls}
 				jsCanva={jsCanva}
 				fullWidth={fullWidth}
-				playing={playing}
-				animationProgress={animationProgress}
 			>
 				{children}
 			</CanvasContainer>
@@ -175,8 +165,6 @@ Canvas.defaultProps = {
 	controls: true,
 	jsCanva: () => {},
 	fullWidth: false,
-	playing: () => {},
-	animationProgress: () => {},
 };
 
 Canvas.propTypes = {
@@ -187,8 +175,6 @@ Canvas.propTypes = {
 	controls: PropTypes.bool,
 	jsCanva: PropTypes.any,
 	fullWidth: PropTypes.bool,
-	playing: PropTypes.func,
-	animationProgress: PropTypes.number || PropTypes.string,
 };
 
 export { Canvas };
