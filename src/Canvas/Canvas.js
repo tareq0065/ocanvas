@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import './Canvas.scss';
 import useWindowDimensions from '../../util/useWindowDimensions';
 import Scene from 'scenejs';
-import { JsCanvasContext } from '../../util/useJsCanvas';
+import { JsCanvasContext, JsCanvasMediaContext } from '../../util/useJsCanvas';
+import MediaScene from '../media';
 
 const CanvasContainer = ({
 	children,
@@ -13,6 +14,7 @@ const CanvasContainer = ({
 	autoPlay,
 	controls,
 	fullWidth,
+	animationDuration,
 }) => {
 	const jsCanvas = useContext(JsCanvasContext);
 	const canvasRef = useRef(null);
@@ -27,6 +29,7 @@ const CanvasContainer = ({
 	useEffect(() => {
 		let duration = jsCanvas.getDuration();
 		jsCanva(jsCanvas);
+		animationDuration(duration);
 
 		if (autoPlay) {
 			jsCanvas.play();
@@ -131,6 +134,7 @@ const Canvas = ({
 	autoPlay,
 	controls,
 	fullWidth,
+	animationDuration,
 }) => {
 	return (
 		<JsCanvasContext.Provider
@@ -143,16 +147,19 @@ const Canvas = ({
 				}
 			).setTime(0)}
 		>
-			<CanvasContainer
-				height={height}
-				width={width}
-				autoPlay={autoPlay}
-				controls={controls}
-				jsCanva={jsCanva}
-				fullWidth={fullWidth}
-			>
-				{children}
-			</CanvasContainer>
+			<JsCanvasMediaContext.Provider value={new MediaScene()}>
+				<CanvasContainer
+					height={height}
+					width={width}
+					autoPlay={autoPlay}
+					controls={controls}
+					jsCanva={jsCanva}
+					fullWidth={fullWidth}
+					animationDuration={animationDuration}
+				>
+					{children}
+				</CanvasContainer>
+			</JsCanvasMediaContext.Provider>
 		</JsCanvasContext.Provider>
 	);
 };
@@ -165,6 +172,7 @@ Canvas.defaultProps = {
 	controls: true,
 	jsCanva: () => {},
 	fullWidth: false,
+	animationDuration: () => {},
 };
 
 Canvas.propTypes = {
@@ -175,6 +183,7 @@ Canvas.propTypes = {
 	controls: PropTypes.bool,
 	jsCanva: PropTypes.any,
 	fullWidth: PropTypes.bool,
+	animationDuration: PropTypes.func,
 };
 
 export { Canvas };

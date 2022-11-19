@@ -27,6 +27,7 @@
   "homepage": "https://github.com/tareq0065/onecanvas#readme",
   "dependencies": {
     "@babel/core": "^7.19.6",
+    "@daybrush/utils": "^1.10.0",
     "@scenejs/effects": "^1.0.1",
     "@scenejs/iframe": "^0.1.0",
     "@scenejs/media": "^0.2.1",

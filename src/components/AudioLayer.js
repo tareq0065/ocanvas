@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../Canvas/Canvas.scss';
-import { JsCanvasContext } from '../../util/useJsCanvas';
-import MediaScene from '@scenejs/media';
+import { JsCanvasContext, JsCanvasMediaContext } from '../../util/useJsCanvas';
+import MediaScene from '../media';
 
 const AudioLayer = ({
 	name,
@@ -15,18 +15,15 @@ const AudioLayer = ({
 	seekEnd,
 }) => {
 	const jsCanvas = useContext(JsCanvasContext);
+	const jsMedia = useContext(JsCanvasMediaContext);
 
 	useEffect(() => {
-		let media = new MediaScene();
-		console.log('jsCanvas', jsCanvas);
-		jsCanvas.newItem(name + id);
-		media
-			.addMedia(name + id, 'https://daybrush.com/scenejs/clapper.mp3')
-			.seek(0, 0.452)
-			.setPlaySpeed(2)
-			.setVolume(0.7)
-			.setDelay(2.1);
-		console.log('media', media);
+		jsMedia
+			.addMedia(name + id, audio)
+			.setPlaySpeed(1)
+			.setVolume(1)
+			.setDuration(5)
+			.setDelay(0);
 
 		// if (seekStart && seekEnd) {
 		// 	media.seek(seekStart, seekEnd);
@@ -45,7 +42,7 @@ const AudioLayer = ({
 		// }
 	}, [audio, volume, playSpeed, delay, seekStart, seekEnd]);
 
-	return <div></div>;
+	return <></>;
 };
 
 AudioLayer.defaultProps = {
