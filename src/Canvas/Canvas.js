@@ -13,6 +13,7 @@ const CanvasContainer = ({
 	jsCanva,
 	autoPlay,
 	controls,
+	playing,
 	fullWidth,
 	animationDuration,
 }) => {
@@ -45,7 +46,11 @@ const CanvasContainer = ({
 		jsCanvas.on('animate', (e) => {
 			setProgress((100 * e.time) / duration);
 		});
-	}, []);
+		playing({
+			playing: isPlaying,
+			progress: progress,
+		});
+	}, [isPlaying, progress]);
 
 	return (
 		<div id="canvasContainer">
@@ -133,6 +138,7 @@ const Canvas = ({
 	jsCanva,
 	autoPlay,
 	controls,
+	playing,
 	fullWidth,
 	animationDuration,
 }) => {
@@ -153,6 +159,7 @@ const Canvas = ({
 					width={width}
 					autoPlay={autoPlay}
 					controls={controls}
+					playing={playing}
 					jsCanva={jsCanva}
 					fullWidth={fullWidth}
 					animationDuration={animationDuration}
@@ -170,6 +177,7 @@ Canvas.defaultProps = {
 	children: [],
 	autoPlay: false,
 	controls: true,
+	playing: () => {},
 	jsCanva: () => {},
 	fullWidth: false,
 	animationDuration: () => {},
@@ -181,6 +189,7 @@ Canvas.propTypes = {
 	children: PropTypes.any,
 	autoPlay: PropTypes.bool,
 	controls: PropTypes.bool,
+	playing: PropTypes.func,
 	jsCanva: PropTypes.any,
 	fullWidth: PropTypes.bool,
 	animationDuration: PropTypes.func,

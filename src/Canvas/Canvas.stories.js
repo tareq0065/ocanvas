@@ -16,7 +16,12 @@ export const BaseCanvas = () => {
 		<Canvas
 			width={ratio.width}
 			height={ratio.height}
-			animationDuration={(duration) => console.log('duration:', duration)}
+			playing={({ playing, progress }) => {
+				console.log('status:', {
+					playing,
+					progress,
+				});
+			}}
 		>
 			<Layer
 				ratio={ratio}
