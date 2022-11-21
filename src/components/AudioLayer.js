@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../Canvas/Canvas.scss';
-import { JsCanvasContext, JsCanvasMediaContext } from '../../util/useJsCanvas';
+import { JsCanvasContext } from '../../util/useJsCanvas';
 import MediaScene from '../media';
 
 const AudioLayer = ({
@@ -15,10 +15,10 @@ const AudioLayer = ({
 	seekEnd,
 }) => {
 	const jsCanvas = useContext(JsCanvasContext);
-	const jsMedia = useContext(JsCanvasMediaContext);
 
 	useEffect(() => {
-		jsMedia
+		let media = new MediaScene();
+		media
 			.addMedia(name + id, audio)
 			.setPlaySpeed(1)
 			.setVolume(1)

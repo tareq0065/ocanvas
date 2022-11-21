@@ -1,6 +1,7 @@
 import Scene from 'scenejs';
 import { isString } from '@daybrush/utils';
-import MediaScene from './index';
+import { JsCanvasContext } from '../../util/useJsCanvas';
+
 export default class Media extends Scene {
 	constructor(url) {
 		super();
@@ -52,13 +53,11 @@ export default class Media extends Scene {
 	}
 	init(url) {
 		const mediaItem = this.newItem('media');
-		console.log('mediaItem:', mediaItem);
 		mediaItem.newFrame(0);
 		mediaItem.newFrame(1);
 		mediaItem.set(0, 'volume', 1);
 		mediaItem.set(0, 'seek', 0);
 		mediaItem.set('100%', 'seek', 0);
-		console.log('mediaItemafter:', mediaItem);
 		this.mediaItem = mediaItem;
 		if (isString(url)) {
 			const audio = new Audio();

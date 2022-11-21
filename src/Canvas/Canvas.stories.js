@@ -17,10 +17,8 @@ export const BaseCanvas = () => {
 			width={ratio.width}
 			height={ratio.height}
 			playing={({ playing, progress }) => {
-				console.log('status:', {
-					playing,
-					progress,
-				});
+				console.log('playing:', playing);
+				console.log('progress:', progress);
 			}}
 		>
 			<Layer

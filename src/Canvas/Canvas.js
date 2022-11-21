@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import './Canvas.scss';
 import useWindowDimensions from '../../util/useWindowDimensions';
 import Scene from 'scenejs';
-import { JsCanvasContext, JsCanvasMediaContext } from '../../util/useJsCanvas';
-import MediaScene from '../media';
+import { JsCanvasContext } from '../../util/useJsCanvas';
 
 const CanvasContainer = ({
 	children,
@@ -153,20 +152,18 @@ const Canvas = ({
 				}
 			).setTime(0)}
 		>
-			<JsCanvasMediaContext.Provider value={new MediaScene()}>
-				<CanvasContainer
-					height={height}
-					width={width}
-					autoPlay={autoPlay}
-					controls={controls}
-					playing={playing}
-					jsCanva={jsCanva}
-					fullWidth={fullWidth}
-					animationDuration={animationDuration}
-				>
-					{children}
-				</CanvasContainer>
-			</JsCanvasMediaContext.Provider>
+			<CanvasContainer
+				height={height}
+				width={width}
+				autoPlay={autoPlay}
+				controls={controls}
+				playing={playing}
+				jsCanva={jsCanva}
+				fullWidth={fullWidth}
+				animationDuration={animationDuration}
+			>
+				{children}
+			</CanvasContainer>
 		</JsCanvasContext.Provider>
 	);
 };

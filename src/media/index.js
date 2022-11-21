@@ -1,6 +1,6 @@
-import NativeScene from 'scenejs';
+import Scene from 'scenejs';
 import Media from './Media';
-export default class MediaScene extends NativeScene {
+export default class MediaScene extends Scene {
 	constructor() {
 		super();
 		this.playInfos = {};
