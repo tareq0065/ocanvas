@@ -13,12 +13,13 @@ export const BaseInlineCanvas = () => {
 		width: 1920,
 		height: 1080,
 	});
-	const [canva2, setCanva2] = useState(null);
+	const canva = useRef();
+	const canva2 = useRef();
 
 	return (
 		<>
 			<div>
-				<Canvas inline width={ratio.width} height={ratio.height}>
+				<Canvas inline width={ratio.width} height={ratio.height} ref={canva}>
 					<Layer
 						ratio={ratio}
 						id={1}
@@ -56,9 +57,18 @@ export const BaseInlineCanvas = () => {
 						seekEnd={13}
 					/>
 				</Canvas>
+
+				<button
+					onClick={() => {
+						canva.current.finish();
+					}}
+				>
+					Stop canvas
+				</button>
 			</div>
 			<div>
 				<Canvas
+					ref={canva2}
 					inline
 					width={ratio.width}
 					height={ratio.height}
@@ -105,7 +115,11 @@ export const BaseInlineCanvas = () => {
 					/>
 				</Canvas>
 				<div>
-					<button onClick={() => console.log('canva2:', canva2)}>
+					<button
+						onClick={() => {
+							canva2.current.pause();
+						}}
+					>
 						Stop canvas 2
 					</button>
 				</div>
