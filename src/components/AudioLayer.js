@@ -13,9 +13,10 @@ const AudioLayer = ({
 	delay,
 	seekStart,
 	seekEnd,
+	stop,
 }) => {
-	let media = new MediaScene();
 	useEffect(() => {
+		let media = new MediaScene();
 		let theDuration = JsCanvas.getDuration();
 		let newMedia = media.addMedia(name + id, audio);
 
@@ -42,6 +43,7 @@ AudioLayer.defaultProps = {
 	delay: 0,
 	seekStart: 0,
 	seekEnd: 0,
+	stop: false,
 };
 
 AudioLayer.propTypes = {
@@ -53,6 +55,7 @@ AudioLayer.propTypes = {
 	delay: PropTypes.number || PropTypes.string,
 	seekStart: PropTypes.number,
 	seekEnd: PropTypes.number,
+	stop: PropTypes.bool,
 };
 
 export { AudioLayer };

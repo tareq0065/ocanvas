@@ -1,4 +1,3 @@
-import { useEffect, useState, useReducer } from 'react';
 import Scene, { EASE_IN_OUT } from 'scenejs';
 
 const JsCanvas = new Scene(
