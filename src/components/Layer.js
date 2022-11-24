@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import '../Canvas/Canvas.css';
-import { JsCanvas } from '../jscanvas';
+import { JsCanvasContext } from '../../util/useJsCanvas';
 
 const Layer = ({
 	children,
@@ -14,10 +14,11 @@ const Layer = ({
 	delay,
 	iteration,
 }) => {
+	const jsCanvas = useContext(JsCanvasContext);
 	const baseName = name.replaceAll(' ', '_') + id;
 
 	useEffect(() => {
-		const newItem = JsCanvas.newItem(`.Layer-${baseName}`, {
+		const newItem = jsCanvas.newItem(`.Layer-${baseName}`, {
 			selector: true,
 			delay: delay,
 			playSpeed: playSpeed,

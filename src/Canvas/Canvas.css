@@ -64,6 +64,11 @@
   justify-content: center;
 }
 
+.playerWrapperInline {
+  position: relative;
+  z-index: 99999999999;
+}
+
 .player {
   position: relative;
   align-items: center;

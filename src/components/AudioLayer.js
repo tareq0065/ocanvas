@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import '../Canvas/Canvas.css';
 import MediaScene from '../media';
 import { JsCanvas } from '../jscanvas';
+import { JsCanvasContext } from '../../util/useJsCanvas';
 
 const AudioLayer = ({
 	name,
@@ -13,11 +14,11 @@ const AudioLayer = ({
 	delay,
 	seekStart,
 	seekEnd,
-	stop,
 }) => {
+	const jsCanvas = useContext(JsCanvasContext);
 	useEffect(() => {
 		let media = new MediaScene();
-		let theDuration = JsCanvas.getDuration();
+		let theDuration = jsCanvas.getDuration();
 		let newMedia = media.addMedia(name + id, audio);
 
 		newMedia.setVolume(volume).setPlaySpeed(playSpeed).setDelay(delay);
@@ -27,7 +28,7 @@ const AudioLayer = ({
 		} else {
 			newMedia.seek(0, theDuration);
 		}
-		JsCanvas.setItem('media', newMedia);
+		jsCanvas.setItem('media', newMedia);
 	}, [seekStart, seekEnd]);
 
 	return <></>;
@@ -43,7 +44,6 @@ AudioLayer.defaultProps = {
 	delay: 0,
 	seekStart: 0,
 	seekEnd: 0,
-	stop: false,
 };
 
 AudioLayer.propTypes = {
@@ -55,7 +55,6 @@ AudioLayer.propTypes = {
 	delay: PropTypes.number || PropTypes.string,
 	seekStart: PropTypes.number,
 	seekEnd: PropTypes.number,
-	stop: PropTypes.bool,
 };
 
 export { AudioLayer };

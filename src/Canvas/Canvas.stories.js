@@ -50,7 +50,7 @@ export const BaseCanvas = () => {
 					src="https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928__480.jpg"
 				/>
 			</Layer>
-			<AudioLayer id={3} delay={0} seekStart={3} seekEnd={13} />
+			<AudioLayer play={false} id={3} delay={0} seekStart={3} seekEnd={13} />
 			<VideoLayer />
 		</Canvas>
 	);
