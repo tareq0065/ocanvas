@@ -35,12 +35,12 @@
     "babel-preset-react-app": "^10.0.1",
     "global": "^4.4.0",
     "identity-obj-proxy": "^3.0.0",
-    "node-sass": "^7.0.3",
     "prop-types": "^15.8.1",
     "react": "18.2.0",
     "react-append-head": "^1.0.16",
     "react-dom": "18.2.0",
-    "scenejs": "^1.6.0"
+    "scenejs": "^1.6.0",
+    "video.js": "^7.20.3"
   },
   "devDependencies": {
     "@babel/plugin-proposal-export-default-from": "^7.18.10",

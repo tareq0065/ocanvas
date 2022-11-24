@@ -1,7 +1,7 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
-import '../Canvas/Canvas.scss';
-import { JsCanvasContext } from '../../util/useJsCanvas';
+import '../Canvas/Canvas.css';
+import { JsCanvas } from '../jscanvas';
 
 const Layer = ({
 	children,
@@ -10,17 +10,14 @@ const Layer = ({
 	ratio,
 	keyframes,
 	style,
-	layerStyle,
 	playSpeed,
 	delay,
-	autoPlay,
 	iteration,
 }) => {
-	const jsCanvas = useContext(JsCanvasContext);
 	const baseName = name.replaceAll(' ', '_') + id;
 
 	useEffect(() => {
-		const newItem = jsCanvas.newItem(`.Layer-${baseName}`, {
+		const newItem = JsCanvas.newItem(`.Layer-${baseName}`, {
 			selector: true,
 			delay: delay,
 			playSpeed: playSpeed,
@@ -65,10 +62,8 @@ Layer.defaultProps = {
 	},
 	keyframes: {},
 	style: {},
-	layerStyle: {},
 	playSpeed: 1,
 	delay: 0,
-	autoPlay: false,
 	children: <div />,
 	iteration: 'infinite',
 };
@@ -82,7 +77,6 @@ Layer.propTypes = {
 	layerStyle: PropTypes.object,
 	playSpeed: PropTypes.number,
 	delay: PropTypes.number || PropTypes.string,
-	autoPlay: PropTypes.bool,
 	children: PropTypes.any,
 	iteration: PropTypes.any,
 };

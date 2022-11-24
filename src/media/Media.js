@@ -1,6 +1,5 @@
 import Scene from 'scenejs';
 import { isString } from '@daybrush/utils';
-import { JsCanvasContext } from '../../util/useJsCanvas';
 
 export default class Media extends Scene {
 	constructor(url) {

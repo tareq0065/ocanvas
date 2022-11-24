@@ -1,9 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import './Canvas.scss';
+import './Canvas.css';
 import useWindowDimensions from '../../util/useWindowDimensions';
-import Scene from 'scenejs';
-import { JsCanvasContext } from '../../util/useJsCanvas';
+import { JsCanvas, useJsCanvas } from '../jscanvas';
 
 const CanvasContainer = ({
 	children,
@@ -16,10 +15,10 @@ const CanvasContainer = ({
 	fullWidth,
 	animationDuration,
 }) => {
-	const jsCanvas = useContext(JsCanvasContext);
 	const canvasRef = useRef(null);
 	const [isPlaying, setIsPlaying] = useState(false);
 	const [progress, setProgress] = useState(0);
+
 	const {
 		height: windowHeight,
 		width: windowWidth,
@@ -27,22 +26,22 @@ const CanvasContainer = ({
 	} = useWindowDimensions(canvasRef, width, height);
 
 	useEffect(() => {
-		let duration = jsCanvas.getDuration();
-		jsCanva(jsCanvas);
+		let duration = JsCanvas.getDuration();
+		jsCanva(JsCanvas);
 		animationDuration(duration);
 
 		if (autoPlay) {
-			jsCanvas.play();
+			JsCanvas.play();
 			setIsPlaying(true);
 		}
 
-		jsCanvas.on('play', (e) => {
+		JsCanvas.on('play', (e) => {
 			setIsPlaying(true);
 		});
-		jsCanvas.on('paused', (e) => {
+		JsCanvas.on('paused', (e) => {
 			setIsPlaying(false);
 		});
-		jsCanvas.on('animate', (e) => {
+		JsCanvas.on('animate', (e) => {
 			setProgress((100 * e.time) / duration);
 		});
 		playing({
@@ -109,15 +108,15 @@ const CanvasContainer = ({
 						<div
 							className={`${isPlaying ? 'pause' : 'play'}`}
 							onClick={() => {
-								jsCanvas.isPaused() ? jsCanvas.play() : jsCanvas.pause();
+								JsCanvas.isPaused() ? JsCanvas.play() : JsCanvas.pause();
 							}}
 						/>
 						<input
 							className="progress"
 							type="range"
 							onChange={(e) => {
-								jsCanvas.pause();
-								jsCanvas.setTime(e.target.value + '%');
+								JsCanvas.pause();
+								JsCanvas.setTime(e.target.value + '%');
 							}}
 							value={progress.toString()}
 							min="0"
@@ -142,29 +141,18 @@ const Canvas = ({
 	animationDuration,
 }) => {
 	return (
-		<JsCanvasContext.Provider
-			value={new Scene(
-				{},
-				{
-					easing: Scene.EASE_IN_OUT,
-					iterationCount: 1,
-					selector: true,
-				}
-			).setTime(0)}
+		<CanvasContainer
+			height={height}
+			width={width}
+			autoPlay={autoPlay}
+			controls={controls}
+			playing={playing}
+			jsCanva={jsCanva}
+			fullWidth={fullWidth}
+			animationDuration={animationDuration}
 		>
-			<CanvasContainer
-				height={height}
-				width={width}
-				autoPlay={autoPlay}
-				controls={controls}
-				playing={playing}
-				jsCanva={jsCanva}
-				fullWidth={fullWidth}
-				animationDuration={animationDuration}
-			>
-				{children}
-			</CanvasContainer>
-		</JsCanvasContext.Provider>
+			{children}
+		</CanvasContainer>
 	);
 };
 

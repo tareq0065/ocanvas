@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import '../Canvas/Canvas.scss';
-import { JsCanvasContext } from '../../util/useJsCanvas';
+import '../Canvas/Canvas.css';
 import MediaScene from '../media';
+import { JsCanvas } from '../jscanvas';
 
 const AudioLayer = ({
 	name,
@@ -14,33 +14,20 @@ const AudioLayer = ({
 	seekStart,
 	seekEnd,
 }) => {
-	const jsCanvas = useContext(JsCanvasContext);
-
+	let media = new MediaScene();
 	useEffect(() => {
-		let media = new MediaScene();
-		media
-			.addMedia(name + id, audio)
-			.setPlaySpeed(1)
-			.setVolume(1)
-			.setDuration(5)
-			.setDelay(0);
+		let theDuration = JsCanvas.getDuration();
+		let newMedia = media.addMedia(name + id, audio);
 
-		// if (seekStart && seekEnd) {
-		// 	media.seek(seekStart, seekEnd);
-		// }
-		//
-		// if (volume) {
-		// 	media.setVolume(volume);
-		// }
-		//
-		// if (playSpeed) {
-		// 	media.setPlaySpeed(playSpeed);
-		// }
-		//
-		// if (delay) {
-		// 	media.setPlaySpeed(delay);
-		// }
-	}, [audio, volume, playSpeed, delay, seekStart, seekEnd]);
+		newMedia.setVolume(volume).setPlaySpeed(playSpeed).setDelay(delay);
+
+		if (seekEnd > 0) {
+			newMedia.seek(seekStart, seekEnd);
+		} else {
+			newMedia.seek(0, theDuration);
+		}
+		JsCanvas.setItem('media', newMedia);
+	}, [seekStart, seekEnd]);
 
 	return <></>;
 };
@@ -54,7 +41,7 @@ AudioLayer.defaultProps = {
 	playSpeed: 1,
 	delay: 0,
 	seekStart: 0,
-	seekEnd: 0.452,
+	seekEnd: 0,
 };
 
 AudioLayer.propTypes = {
