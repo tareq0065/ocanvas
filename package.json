@@ -29,8 +29,6 @@
     "@babel/core": "^7.19.6",
     "@daybrush/utils": "^1.10.0",
     "@scenejs/effects": "^1.0.1",
-    "@scenejs/iframe": "^0.1.0",
-    "@scenejs/media": "^0.2.1",
     "babel-loader": "^9.0.0",
     "babel-preset-react-app": "^10.0.1",
     "global": "^4.4.0",
@@ -40,6 +38,7 @@
     "react-append-head": "^1.0.16",
     "react-dom": "18.2.0",
     "scenejs": "^1.6.0",
+    "uuid": "^9.0.0",
     "video.js": "^7.20.3"
   },
   "devDependencies": {

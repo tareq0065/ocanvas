@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../Canvas/Canvas.css';
 import MediaScene from '../media';
-import { JsCanvas } from '../jscanvas';
 import { JsCanvasContext } from '../../util/useJsCanvas';
 
 const AudioLayer = ({

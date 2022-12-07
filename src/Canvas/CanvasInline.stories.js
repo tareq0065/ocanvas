@@ -60,7 +60,7 @@ export const BaseInlineCanvas = () => {
 
 				<button
 					onClick={() => {
-						canva.current.finish();
+						canva.current.duration();
 					}}
 				>
 					Stop canvas

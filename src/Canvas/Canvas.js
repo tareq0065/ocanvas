@@ -41,6 +41,9 @@ const CanvasContainer = forwardRef(
 			finish() {
 				jsCanvas.finish();
 			},
+			duration() {
+				return jsCanvas.getDuration();
+			},
 		}));
 
 		const {
@@ -169,17 +172,19 @@ const Canvas = forwardRef(
 		},
 		ref
 	) => {
-		const jc = new Scene(
-			{},
-			{
-				easing: Scene.EASE_IN_OUT,
-				iterationCount: 1,
-				selector: true,
-			}
-		).setTime(0);
-
 		return (
-			<JsCanvasContext.Provider value={jc}>
+			<JsCanvasContext.Provider
+				value={
+					new Scene(
+						{},
+						{
+							easing: Scene.EASE_IN_OUT,
+							iterationCount: 1,
+							selector: true,
+						}
+					)
+				}
+			>
 				<CanvasContainer
 					ref={ref}
 					height={height}

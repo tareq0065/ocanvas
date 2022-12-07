@@ -35,13 +35,14 @@ export const BaseCanvas = () => {
 				keyframes={{
 					0: {
 						opacity: 0,
-						transform: 'translate(-50%, 0)',
+						transform: 'translate(-100%, 0)',
 					},
-					9: {
+					2: {
 						opacity: 1,
-						transform: 'translate(-50%, 0)',
+						transform: 'translate(0, 0)',
 					},
-					0.9: { opacity: 1, transform: 'translate(0, 0)' },
+					2.9: { opacity: 1, transform: 'translate(0, 0)' },
+					3.1: { opacity: 0, transform: 'translate(0, 0)' },
 				}}
 				iteration={1}
 			>
@@ -50,8 +51,7 @@ export const BaseCanvas = () => {
 					src="https://cdn.pixabay.com/photo/2018/01/12/10/19/fantasy-3077928__480.jpg"
 				/>
 			</Layer>
-			<AudioLayer play={false} id={3} delay={0} seekStart={3} seekEnd={13} />
-			<VideoLayer />
+			<AudioLayer id={3} delay={0} seekStart={3} seekEnd={6} />
 		</Canvas>
 	);
 };
