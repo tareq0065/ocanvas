@@ -5,7 +5,7 @@ import { ImageLayer } from './ImageLayer';
 import { v4 as uuidv4 } from 'uuid';
 import { Layer } from './Layer';
 
-const SplitInLayer = ({
+const SplitOutLayer = ({
 	name,
 	id,
 	ratio,
@@ -15,14 +15,13 @@ const SplitInLayer = ({
 	text,
 	playSpeed,
 	delay,
-	sliceDelay,
 	iteration,
 	foreground,
-	gridX,
-	gridY,
 }) => {
 	const baseName = name.replaceAll(' ', '_') + id;
 	const [frontlayers, setFrontLayers] = useState([]);
+	const gridX = 4;
+	const gridY = 3;
 
 	useEffect(() => {
 		setFrontLayers(generateSlices(foreground));
@@ -30,16 +29,16 @@ const SplitInLayer = ({
 
 	const generateSlices = (img) => {
 		let theLayers = [];
+
 		let afterTop = 0;
 		let afterLeft = 0;
 		let afterWidth = 0;
 		let afterHeight = 0;
 
 		for (let x = 0; x < gridX; x++) {
-			let cropRatio = x % 2 === 0 ? 98 : 100;
 			for (let y = 0; y < gridY; y++) {
-				let width = ((ratio.width / gridX) * cropRatio) / ratio.width + '%',
-					height = ((ratio.height / gridY) * 95) / ratio.height + '%',
+				let width = ((ratio.width / gridX) * 100) / ratio.width + '%',
+					height = ((ratio.height / gridY) * 100) / ratio.height + '%',
 					top = ((ratio.height / gridY) * y * 100) / ratio.height + '%',
 					left = ((ratio.width / gridX) * x * 100) / ratio.width + '%',
 					bgPosX = -((ratio.width / gridX) * x) + 'px',
@@ -47,30 +46,49 @@ const SplitInLayer = ({
 
 				const newId = uuidv4().replaceAll('-', '');
 
-				let translate = y % 2 === 0 ? '200%' : '-200%';
+				let centerTransitions =
+					(x === 1 && y === 1) || (x === 2 && y === 1)
+						? {
+								2: {
+									opacity: 0,
+								},
+						  }
+						: {};
 
+				console.log(x + y, centerTransitions);
+
+				if (x === 1 && y === 1) {
+					afterTop = top;
+					afterLeft = left;
+					// afterWidth = width;
+					afterHeight = height;
+				}
+				if (x === 2 && y === 1) {
+					// afterTop += top;
+					// afterLeft = left;
+					afterWidth = parseInt(width) * 2 + '%';
+					// afterHeight = height;
+				}
 				theLayers.push(
 					<ImageLayer
 						key={newId}
 						img={img}
 						name={'foreground' + baseName + x + y}
-						delay={delay * y}
+						delay={delay}
 						id={x + y}
 						keyframes={{
 							0: {
+								transform: `scale(100%)`,
+								border: '0 solid #fff',
+							},
+							1: {
+								border: '15px solid #fff',
+							},
+							1.5: {
 								opacity: 1,
-								transform: `translate(${translate}, 0)`,
+								transform: `scale(75%)`,
 							},
-							2: {
-								opacity: 1,
-								transform: `translate(0, 0)`,
-							},
-							4: {
-								opacity: 1,
-							},
-							4.5: {
-								opacity: 0,
-							},
+							...centerTransitions,
 						}}
 						iteration={1}
 						style={{
@@ -85,13 +103,6 @@ const SplitInLayer = ({
 						ratio={{ width: width, height: height }}
 					/>
 				);
-
-				if (gridY - 2 === y) {
-					afterTop = top;
-					afterLeft = left;
-					afterWidth = width;
-					afterHeight = height;
-				}
 			}
 		}
 
@@ -101,8 +112,8 @@ const SplitInLayer = ({
 				key={newExtraId}
 				ratio={ratio}
 				id={newExtraId}
-				name={`fade out text`}
-				delay={delay + sliceDelay}
+				name={`fade in text`}
+				delay={delay + 2}
 				style={{
 					margin: 0,
 					top: afterTop,
@@ -110,29 +121,25 @@ const SplitInLayer = ({
 					width: afterWidth,
 					height: afterHeight,
 					position: 'absolute',
-					backgroundColor: '#000',
+					transform: `scale(75%)`,
 				}}
 				keyframes={{
 					0: {
-						opacity: 1,
-						transform: 'translate(200%, 0)',
+						opacity: 0,
+						transform: 'translate(0, 0) scale(75%)',
 					},
 					1: {
 						opacity: 1,
-						transform: 'translate(0, 0)',
+						transform: 'translate(0, 0) scale(200%)',
 					},
-					2.8: {
+					2: {
 						opacity: 1,
-					},
-					3: {
-						opacity: 0,
 					},
 				}}
 				iteration={1}
 			>
 				<div
 					style={{
-						color: '#fff',
 						fontSize: 30,
 						display: 'flex',
 						justifyContent: 'center',
@@ -164,7 +171,6 @@ const SplitInLayer = ({
 				top: 0,
 				bottom: 0,
 				margin: 'auto',
-				// backgroundColor: '#000',
 				...style,
 			}}
 		>
@@ -173,8 +179,8 @@ const SplitInLayer = ({
 	);
 };
 
-SplitInLayer.defaultProps = {
-	name: 'splitInAnimation',
+SplitOutLayer.defaultProps = {
+	name: 'splitOutAnimation',
 	id: 1,
 	ratio: {
 		width: 1080,
@@ -186,29 +192,22 @@ SplitInLayer.defaultProps = {
 	text: 'Hello There .....',
 	playSpeed: 1,
 	delay: 0,
-	sliceDelay: 0,
 	iteration: 'infinite',
 	foreground: <div />,
-	gridX: 5,
-	gridY: 1,
 };
 
-SplitInLayer.propTypes = {
+SplitOutLayer.propTypes = {
 	name: PropTypes.string,
-	id: PropTypes.number,
+	id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	ratio: PropTypes.object,
 	keyframes: PropTypes.object,
 	style: PropTypes.object,
 	textLayerStyle: PropTypes.object,
 	text: PropTypes.string,
-	layerStyle: PropTypes.object,
 	playSpeed: PropTypes.number,
 	delay: PropTypes.number || PropTypes.string,
-	sliceDelay: PropTypes.number || PropTypes.string,
 	iteration: PropTypes.any,
 	foreground: PropTypes.node,
-	gridX: PropTypes.number,
-	gridY: PropTypes.number,
 };
 
-export { SplitInLayer };
+export { SplitOutLayer };

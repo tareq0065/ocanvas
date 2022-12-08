@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../Canvas/Canvas.css';
 import { ImageLayer } from './ImageLayer';
+import { v4 as uuidv4 } from 'uuid';
 
 const SplitDownLayer = ({
 	name,
@@ -13,57 +14,44 @@ const SplitDownLayer = ({
 	delay,
 	iteration,
 	foreground,
-	background,
 	gridX,
 	gridY,
 }) => {
 	const baseName = name.replaceAll(' ', '_') + id;
-	const [bglayers, setBgLayers] = useState([]);
 	const [frontlayers, setFrontLayers] = useState([]);
 
 	useEffect(() => {
-		setBgLayers(generateSlices(background, true));
 		setFrontLayers(generateSlices(foreground));
 	}, [name, keyframes, iteration]);
 
-	const generateSlices = (img, back = false) => {
+	const generateSlices = (img) => {
 		let theLayers = [];
 
 		for (let x = 0; x < gridX; x++) {
 			for (let y = 0; y < gridY; y++) {
-				let width = ((ratio.width / gridX) * 100) / ratio.width + '%',
+				let width = ((ratio.width / gridX) * 101) / ratio.width + '%',
 					height = ((ratio.height / gridY) * 100) / ratio.height + '%',
-					top = ((ratio.height / gridY) * y * 100) / ratio.height + '%',
+					top = ((ratio.height / gridY) * y * 101) / ratio.height + '%',
 					left = ((ratio.width / gridX) * x * 100) / ratio.width + '%',
 					bgPosX = -((ratio.width / gridX) * x) + 'px',
 					bgPosY = -((ratio.height / gridY) * y) + 'px';
 
+				const newId = uuidv4().replaceAll('-', '');
 				theLayers.push(
 					<ImageLayer
-						key={x + y}
+						key={newId}
 						img={img}
-						name={back ? 'background' : 'foreground' + baseName + x + y}
+						name={'foreground' + baseName + x + y}
 						delay={delay + x}
 						id={x + y}
-						keyframes={
-							back
-								? {
-										0: {
-											transform: `translate(0, -100%)`,
-										},
-										0.5: {
-											transform: `translate(0, 0)`,
-										},
-								  }
-								: {
-										0: {
-											transform: `translate(0, 0)`,
-										},
-										0.5: {
-											transform: `translate(0, 100%)`,
-										},
-								  }
-						}
+						keyframes={{
+							0: {
+								transform: `translate(0, -100%)`,
+							},
+							0.5: {
+								transform: `translate(0, 0)`,
+							},
+						}}
 						iteration={1}
 						style={{
 							top: top,
@@ -71,7 +59,6 @@ const SplitDownLayer = ({
 							width: width,
 							height: height,
 							position: 'absolute',
-							zIndex: back ? 0 : 1,
 							backgroundPosition: bgPosX + ' ' + bgPosY,
 							backgroundSize: ratio.width + 'px',
 						}}
@@ -102,7 +89,6 @@ const SplitDownLayer = ({
 			}}
 		>
 			{frontlayers}
-			{bglayers}
 		</div>
 	);
 };
@@ -120,7 +106,6 @@ SplitDownLayer.defaultProps = {
 	delay: 0,
 	iteration: 'infinite',
 	foreground: <div />,
-	background: <div />,
 	gridX: 5,
 	gridY: 1,
 };
@@ -136,7 +121,6 @@ SplitDownLayer.propTypes = {
 	delay: PropTypes.number || PropTypes.string,
 	iteration: PropTypes.any,
 	foreground: PropTypes.node,
-	background: PropTypes.node,
 	gridX: PropTypes.number,
 	gridY: PropTypes.number,
 };

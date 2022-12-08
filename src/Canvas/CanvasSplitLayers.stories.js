@@ -6,6 +6,7 @@ import { VideoLayer } from '../components/VideoLayer';
 import { SplitDownLayer } from '../components/SplitDownLayer';
 import { SplitSlideInLayer } from '../components/SplitSlideInLayer';
 import { SplitInLayer } from '../components/SplitInLayer';
+import { SplitOutLayer } from '../components/SplitOutLayer';
 
 export default {
 	title: 'Canvas',
@@ -44,13 +45,26 @@ export const SplitLayersCanvas = () => {
 			{/*	background="https://assets2.razerzone.com/images/pnx.assets/618c0b65424070a1017a7168ea1b6337/razer-wallpapers-page-hero-mobile.jpg"*/}
 			{/*/>*/}
 
-			<SplitInLayer
+			{/*<SplitInLayer*/}
+			{/*	id={4}*/}
+			{/*	ratio={ratio}*/}
+			{/*	gridX={2}*/}
+			{/*	gridY={4}*/}
+			{/*	delay={0}*/}
+			{/*	sliceDelay={1.5}*/}
+			{/*	textLayerStyle={{*/}
+			{/*		backgroundColor: '#0e1318',*/}
+			{/*	}}*/}
+			{/*	foreground="https://github.com/supahfunk/supah-codepen/blob/master/stcz-1.png?raw=true"*/}
+			{/*/>*/}
+
+			<SplitOutLayer
 				id={4}
 				ratio={ratio}
-				gridX={2}
-				gridY={4}
 				delay={0}
-				sliceDelay={1}
+				style={{
+					backgroundColor: '#fff',
+				}}
 				foreground="https://github.com/supahfunk/supah-codepen/blob/master/stcz-1.png?raw=true"
 			/>
 		</Canvas>
