@@ -42,7 +42,6 @@ export const SplitLayersCanvas = () => {
 			{/*	gridY={1}*/}
 			{/*	delay={0}*/}
 			{/*	foreground="https://github.com/supahfunk/supah-codepen/blob/master/stcz-1.png?raw=true"*/}
-			{/*	background="https://assets2.razerzone.com/images/pnx.assets/618c0b65424070a1017a7168ea1b6337/razer-wallpapers-page-hero-mobile.jpg"*/}
 			{/*/>*/}
 
 			{/*<SplitInLayer*/}
@@ -60,12 +59,15 @@ export const SplitLayersCanvas = () => {
 
 			<SplitOutLayer
 				id={4}
+				name="splitOutAnimationOut"
 				ratio={ratio}
 				delay={0}
 				style={{
 					backgroundColor: '#fff',
 				}}
-				foreground="https://github.com/supahfunk/supah-codepen/blob/master/stcz-1.png?raw=true"
+				textLayerStyle={{}}
+				text={'Hello There .....'}
+				foreground="https://d18xbnkzfhw2km.cloudfront.net/development/content_library/images/5e364a9affdf91a279b5d89c2e6d27f3.jpg"
 			/>
 		</Canvas>
 	);

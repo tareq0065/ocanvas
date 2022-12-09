@@ -55,19 +55,13 @@ const SplitOutLayer = ({
 						  }
 						: {};
 
-				console.log(x + y, centerTransitions);
-
 				if (x === 1 && y === 1) {
 					afterTop = top;
 					afterLeft = left;
-					// afterWidth = width;
 					afterHeight = height;
 				}
 				if (x === 2 && y === 1) {
-					// afterTop += top;
-					// afterLeft = left;
 					afterWidth = parseInt(width) * 2 + '%';
-					// afterHeight = height;
 				}
 				theLayers.push(
 					<ImageLayer
@@ -193,7 +187,7 @@ SplitOutLayer.defaultProps = {
 	playSpeed: 1,
 	delay: 0,
 	iteration: 'infinite',
-	foreground: <div />,
+	foreground: '',
 };
 
 SplitOutLayer.propTypes = {
@@ -207,7 +201,7 @@ SplitOutLayer.propTypes = {
 	playSpeed: PropTypes.number,
 	delay: PropTypes.number || PropTypes.string,
 	iteration: PropTypes.any,
-	foreground: PropTypes.node,
+	foreground: PropTypes.string,
 };
 
 export { SplitOutLayer };

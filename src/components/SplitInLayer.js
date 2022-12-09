@@ -188,7 +188,7 @@ SplitInLayer.defaultProps = {
 	delay: 0,
 	sliceDelay: 0,
 	iteration: 'infinite',
-	foreground: <div />,
+	foreground: '',
 	gridX: 5,
 	gridY: 1,
 };
@@ -206,7 +206,7 @@ SplitInLayer.propTypes = {
 	delay: PropTypes.number || PropTypes.string,
 	sliceDelay: PropTypes.number || PropTypes.string,
 	iteration: PropTypes.any,
-	foreground: PropTypes.node,
+	foreground: PropTypes.string,
 	gridX: PropTypes.number,
 	gridY: PropTypes.number,
 };

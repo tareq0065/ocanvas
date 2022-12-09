@@ -101,7 +101,7 @@ SplitSlideInLayer.defaultProps = {
 	playSpeed: 1,
 	delay: 0,
 	iteration: 'infinite',
-	foreground: <div />,
+	foreground: '',
 	gridX: 5,
 };
 
@@ -115,7 +115,7 @@ SplitSlideInLayer.propTypes = {
 	playSpeed: PropTypes.number,
 	delay: PropTypes.number || PropTypes.string,
 	iteration: PropTypes.any,
-	foreground: PropTypes.node,
+	foreground: PropTypes.string,
 	gridX: PropTypes.number,
 };
 

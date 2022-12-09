@@ -105,7 +105,7 @@ SplitDownLayer.defaultProps = {
 	playSpeed: 1,
 	delay: 0,
 	iteration: 'infinite',
-	foreground: <div />,
+	foreground: '',
 	gridX: 5,
 	gridY: 1,
 };
@@ -120,7 +120,7 @@ SplitDownLayer.propTypes = {
 	playSpeed: PropTypes.number,
 	delay: PropTypes.number || PropTypes.string,
 	iteration: PropTypes.any,
-	foreground: PropTypes.node,
+	foreground: PropTypes.string,
 	gridX: PropTypes.number,
 	gridY: PropTypes.number,
 };
