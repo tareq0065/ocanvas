@@ -16,6 +16,7 @@ const SplitOutLayer = ({
 	text,
 	playSpeed,
 	delay,
+	splitDelay,
 	iteration,
 	foreground,
 }) => {
@@ -83,7 +84,7 @@ const SplitOutLayer = ({
 						key={newId}
 						img={img}
 						name={'foreground' + baseName + x + y}
-						delay={delay}
+						delay={splitDelay}
 						id={x + y}
 						keyframes={{
 							0: {
@@ -201,6 +202,7 @@ SplitOutLayer.defaultProps = {
 	text: 'Hello There .....',
 	playSpeed: 1,
 	delay: 0,
+	splitDelay: 0,
 	iteration: 'infinite',
 	foreground: '',
 };
@@ -214,7 +216,8 @@ SplitOutLayer.propTypes = {
 	textLayerStyle: PropTypes.object,
 	text: PropTypes.string,
 	playSpeed: PropTypes.number,
-	delay: PropTypes.number || PropTypes.string,
+	delay: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	splitDelay: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	iteration: PropTypes.any,
 	foreground: PropTypes.string,
 };

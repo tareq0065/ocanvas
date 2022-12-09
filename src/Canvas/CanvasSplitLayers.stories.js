@@ -62,6 +62,7 @@ export const SplitLayersCanvas = () => {
 				name="splitOutAnimationOut"
 				ratio={ratio}
 				delay={0}
+				splitDelay={1.5}
 				style={{
 					backgroundColor: '#fff',
 					zIndex: 9,
@@ -69,6 +70,7 @@ export const SplitLayersCanvas = () => {
 				keyframes={{
 					0: {
 						opacity: 1,
+						transform: 'scale(90%) rotate(0deg)',
 					},
 					3: {
 						opacity: 1,
