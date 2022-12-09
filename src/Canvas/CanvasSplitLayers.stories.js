@@ -64,6 +64,23 @@ export const SplitLayersCanvas = () => {
 				delay={0}
 				style={{
 					backgroundColor: '#fff',
+					zIndex: 9,
+				}}
+				keyframes={{
+					0: {
+						opacity: 1,
+					},
+					3: {
+						opacity: 1,
+						transform: 'scale(100%) rotate(0deg)',
+					},
+					3.5: {
+						transform: 'scale(150%) rotate(0deg)',
+					},
+					4: {
+						transform: 'rotate(90deg)',
+						opacity: 0,
+					},
 				}}
 				textLayerStyle={{}}
 				text={'Hello There .....'}

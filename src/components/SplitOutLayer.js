@@ -4,6 +4,7 @@ import '../Canvas/Canvas.css';
 import { ImageLayer } from './ImageLayer';
 import { v4 as uuidv4 } from 'uuid';
 import { Layer } from './Layer';
+import { JsCanvasContext } from '../../util/useJsCanvas';
 
 const SplitOutLayer = ({
 	name,
@@ -18,12 +19,26 @@ const SplitOutLayer = ({
 	iteration,
 	foreground,
 }) => {
+	const jsCanvas = useContext(JsCanvasContext);
 	const baseName = name.replaceAll(' ', '_') + id;
 	const [frontlayers, setFrontLayers] = useState([]);
 	const gridX = 4;
 	const gridY = 3;
 
 	useEffect(() => {
+		const newItem = jsCanvas.newItem(`.Layer-${baseName}`, {
+			selector: true,
+			delay: delay,
+			playSpeed: playSpeed,
+		});
+		newItem.set({
+			...keyframes,
+			options: {
+				delay: delay,
+				iteration: iteration,
+				playSpeed: playSpeed,
+			},
+		});
 		setFrontLayers(generateSlices(foreground));
 	}, [name, keyframes, iteration]);
 

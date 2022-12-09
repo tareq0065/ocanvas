@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import '../Canvas/Canvas.css';
 import { ImageLayer } from './ImageLayer';
+import { JsCanvasContext } from '../../util/useJsCanvas';
 
 const SplitSlideInLayer = ({
 	name,
@@ -16,10 +17,24 @@ const SplitSlideInLayer = ({
 	background,
 	gridX,
 }) => {
+	const jsCanvas = useContext(JsCanvasContext);
 	const baseName = name.replaceAll(' ', '_') + id;
 	const [frontlayers, setFrontLayers] = useState([]);
 
 	useEffect(() => {
+		const newItem = jsCanvas.newItem(`.Layer-${baseName}`, {
+			selector: true,
+			delay: delay,
+			playSpeed: playSpeed,
+		});
+		newItem.set({
+			...keyframes,
+			options: {
+				delay: delay,
+				iteration: iteration,
+				playSpeed: playSpeed,
+			},
+		});
 		setFrontLayers(generateSlices(foreground));
 	}, [name, keyframes, iteration]);
 
