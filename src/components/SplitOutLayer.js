@@ -11,6 +11,8 @@ const SplitOutLayer = ({
 	id,
 	ratio,
 	keyframes,
+	keyframesImage,
+	keyframesText,
 	style,
 	textLayerStyle,
 	text,
@@ -86,20 +88,7 @@ const SplitOutLayer = ({
 						name={'foreground' + baseName + x + y}
 						delay={splitDelay}
 						id={x + y}
-						keyframes={{
-							0: {
-								transform: `scale(100%)`,
-								border: '0 solid #fff',
-							},
-							1: {
-								border: '15px solid #fff',
-							},
-							1.5: {
-								opacity: 1,
-								transform: `scale(75%)`,
-							},
-							...centerTransitions,
-						}}
+						keyframes={{ ...keyframesImage, ...centerTransitions }}
 						iteration={1}
 						style={{
 							top: top,
@@ -108,7 +97,7 @@ const SplitOutLayer = ({
 							height: height,
 							position: 'absolute',
 							backgroundPosition: bgPosX + ' ' + bgPosY,
-							backgroundSize: ratio.width + 'px',
+							backgroundSize: `center center`,
 						}}
 						ratio={{ width: width, height: height }}
 					/>
@@ -123,7 +112,7 @@ const SplitOutLayer = ({
 				ratio={ratio}
 				id={newExtraId}
 				name={`fade in text`}
-				delay={delay + 2}
+				delay={splitDelay * 2}
 				style={{
 					margin: 0,
 					top: afterTop,
@@ -133,19 +122,7 @@ const SplitOutLayer = ({
 					position: 'absolute',
 					transform: `scale(75%)`,
 				}}
-				keyframes={{
-					0: {
-						opacity: 0,
-						transform: 'translate(0, 0) scale(75%)',
-					},
-					1: {
-						opacity: 1,
-						transform: 'translate(0, 0) scale(200%)',
-					},
-					2: {
-						opacity: 1,
-					},
-				}}
+				keyframes={keyframesText}
 				iteration={1}
 			>
 				<div
@@ -197,6 +174,8 @@ SplitOutLayer.defaultProps = {
 		height: 720,
 	},
 	keyframes: {},
+	keyframesImage: {},
+	keyframesText: {},
 	style: {},
 	textLayerStyle: {},
 	text: 'Hello There .....',
@@ -212,6 +191,8 @@ SplitOutLayer.propTypes = {
 	id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	ratio: PropTypes.object,
 	keyframes: PropTypes.object,
+	keyframesImage: PropTypes.object,
+	keyframesText: PropTypes.object,
 	style: PropTypes.object,
 	textLayerStyle: PropTypes.object,
 	text: PropTypes.string,

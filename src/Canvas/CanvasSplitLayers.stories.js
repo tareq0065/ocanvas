@@ -60,7 +60,10 @@ export const SplitLayersCanvas = () => {
 			<SplitOutLayer
 				id={4}
 				name="splitOutAnimationOut"
-				ratio={ratio}
+				ratio={{
+					width: 620,
+					height: 720,
+				}}
 				delay={0}
 				splitDelay={1.5}
 				style={{
@@ -72,16 +75,42 @@ export const SplitLayersCanvas = () => {
 						opacity: 1,
 						transform: 'scale(90%) rotate(0deg)',
 					},
-					3: {
-						opacity: 1,
+					4.5: {
 						transform: 'scale(100%) rotate(0deg)',
 					},
-					3.5: {
+					5.5: {
+						opacity: 1,
 						transform: 'scale(150%) rotate(0deg)',
 					},
-					4: {
+					6: {
 						transform: 'rotate(90deg)',
 						opacity: 0,
+					},
+				}}
+				keyframesImage={{
+					0: {
+						transform: `scale(100%)`,
+						border: '0 solid #fff',
+					},
+					1: {
+						border: '5px solid #fff',
+					},
+					1.5: {
+						opacity: 1,
+						transform: `scale(75%)`,
+					},
+				}}
+				keyframesText={{
+					0: {
+						opacity: 0,
+						transform: 'translate(0, 0) scale(75%)',
+					},
+					1: {
+						opacity: 1,
+						transform: 'translate(0, 0) scale(120%)',
+					},
+					2: {
+						opacity: 1,
 					},
 				}}
 				textLayerStyle={{}}
